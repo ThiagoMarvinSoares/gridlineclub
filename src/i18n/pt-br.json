@@ -1,0 +1,118 @@
+{
+  "site": {
+    "name": "GridLine Club",
+    "tagline": "O Pulso do Automobilismo",
+    "description": "Seu destino para cobertura de corridas de F1, análise de regulamentos e mergulhos técnicos no mundo do automobilismo."
+  },
+  "nav": {
+    "home": "Início",
+    "calendar": "Calendário",
+    "standings": "Classificação",
+    "articles": "Artigos",
+    "about": "Sobre",
+    "toggleMenu": "Abrir menu"
+  },
+  "hero": {
+    "badge": "Temporada de Fórmula 1 2026",
+    "headingLine1": "O Pulso do",
+    "headingLine2": "Automobilismo",
+    "readArticles": "Ler Artigos",
+    "raceCalendar": "Calendário de Corridas"
+  },
+  "nextRace": {
+    "title": "Próxima Corrida",
+    "round": "Etapa",
+    "days": "Dias",
+    "hours": "Horas",
+    "min": "Min",
+    "sec": "Seg",
+    "raceComplete": "Corrida Encerrada",
+    "viewCalendar": "Ver calendário completo"
+  },
+  "latestPosts": {
+    "heading": "Últimos Artigos",
+    "viewAll": "Ver todos",
+    "viewAllMobile": "Ver todos os artigos"
+  },
+  "posts": {
+    "heading": "Todos os Artigos",
+    "metaDescription": "Todos os artigos sobre Fórmula 1 — regulamentos, resumos de corridas, análises técnicas e explicações.",
+    "minRead": "min de leitura",
+    "readMore": "Leia mais",
+    "noArticles": "Nenhum artigo encontrado.",
+    "backToArticles": "Voltar aos artigos",
+    "backToAll": "Voltar a todos os artigos",
+    "notFound": "Artigo Não Encontrado"
+  },
+  "calendar": {
+    "heading": "Calendário F1 2026",
+    "metaDescription": "Calendário completo da Fórmula 1 2026 com horários das sessões nos fusos horários Leste dos EUA (ET) e Brasil (BRT).",
+    "timezoneIntro": "Todos os horários mostrados em",
+    "timezoneET": "Leste dos EUA (ET)",
+    "and": "e",
+    "timezoneBRT": "Brasil (BRT)",
+    "timezoneSuffix": ". Os horários se ajustam automaticamente ao horário de verão.",
+    "session": "Sessão",
+    "etLabel": "ET (EUA)",
+    "brtLabel": "BRT (BR)",
+    "next": "PRÓXIMA",
+    "completed": "ENCERRADA",
+    "sprint": "SPRINT",
+    "sprintQuali": "Quali Sprint",
+    "sprintRace": "Sprint",
+    "fp1": "TL1",
+    "fp2": "TL2",
+    "fp3": "TL3",
+    "qualifying": "Classificação",
+    "race": "Corrida"
+  },
+  "standings": {
+    "heading": "Classificação do Campeonato F1 2026",
+    "metaDescription": "Classificação ao vivo dos campeonatos de pilotos e construtores da Fórmula 1 2026.",
+    "apiCredit": "Classificação ao vivo calculada a partir dos resultados de corridas e sprints via",
+    "apiSuffix": "API.",
+    "drivers": "Pilotos",
+    "constructors": "Construtores",
+    "pts": "PTS",
+    "win": "VIT",
+    "wins": "VIT",
+    "failedToLoad": "Falha ao carregar classificação"
+  },
+  "about": {
+    "heading": "Sobre o GridLine Club",
+    "metaDescription": "Sobre o GridLine Club — um blog de automobilismo cobrindo regulamentos, resumos de corridas e análises técnicas da Fórmula 1.",
+    "intro": "<strong>GridLine Club</strong> é um blog de automobilismo dedicado a trazer cobertura aprofundada da Fórmula 1 e do mundo das corridas. Cobrimos fins de semana de corrida, detalhamos regulamentos, explicamos o lado técnico do esporte e ajudamos novatos a entender o que torna o automobilismo tão emocionante.",
+    "whatWeCover": "O Que Cobrimos",
+    "coverRecaps": "<strong>Resumos de Corridas</strong> — Análise pós-corrida, momentos-chave e resultados de cada fim de semana de Grande Prêmio.",
+    "coverRegulations": "<strong>Regulamentos</strong> — Análises detalhadas das mudanças de regras da FIA, atualizações do teto de gastos e como os regulamentos moldam o esporte.",
+    "coverTechnical": "<strong>Análise Técnica</strong> — Como os carros de F1 funcionam, conceitos aerodinâmicos, tecnologia de unidade de potência e inovações de engenharia.",
+    "coverHowItWorks": "<strong>Como Funciona</strong> — Explicações para iniciantes sobre estratégia de pneus, formatos de classificação, corridas sprint e muito mais.",
+    "raceCalendar": "Calendário de Corridas",
+    "calendarDesc": "Mantemos um calendário completo de corridas de F1 com horários das sessões nos fusos horários Leste dos EUA (ET) e Brasil (BRT), além de uma contagem regressiva para a próxima corrida. Nunca mais perca uma sessão.",
+    "ourMission": "Nossa Missão",
+    "missionDesc": "Seja você um fã de automobilismo de longa data ou esteja apenas descobrindo a emoção das corridas, o GridLine Club tem como objetivo ser seu recurso principal para entender e aproveitar o esporte. Acreditamos que a melhor forma de apreciar o automobilismo é entender os detalhes por trás dele — as estratégias, a engenharia e as regras que criam o espetáculo que todos amamos."
+  },
+  "footer": {
+    "navigate": "Navegar",
+    "raceCalendar": "Calendário de Corridas",
+    "categories": "Categorias",
+    "copyright": "Todos os direitos reservados.",
+    "builtWith": "Uma carta de amor ao automobilismo."
+  },
+  "notFound": {
+    "heading": "404",
+    "text": "Página não encontrada",
+    "description": "A página que você procura não existe ou foi movida.",
+    "backHome": "Voltar ao Início"
+  },
+  "categories": {
+    "regulations": { "name": "Regulamentos", "description": "Mudanças de regras, diretivas da FIA e análise regulatória" },
+    "race-recaps": { "name": "Resumos de Corridas", "description": "Análise pós-corrida, momentos-chave e detalhamento de resultados" },
+    "technical": { "name": "Técnico", "description": "Design de carros, engenharia, aerodinâmica e desenvolvimento" },
+    "how-it-works": { "name": "Como Funciona", "description": "Explicações para iniciantes e mergulhos profundos em como a F1 opera" }
+  },
+  "categoryPage": {
+    "allArticles": "Todos os artigos",
+    "notFound": "Categoria Não Encontrada"
+  }
+}

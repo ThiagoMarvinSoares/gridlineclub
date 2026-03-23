@@ -1,0 +1,118 @@
+{
+  "site": {
+    "name": "GridLine Club",
+    "tagline": "The Pulse of Motorsport",
+    "description": "Your destination for F1 race coverage, regulation analysis, and technical deep dives into the world of motorsport."
+  },
+  "nav": {
+    "home": "Home",
+    "calendar": "Calendar",
+    "standings": "Standings",
+    "articles": "Articles",
+    "about": "About",
+    "toggleMenu": "Toggle menu"
+  },
+  "hero": {
+    "badge": "Formula 1 Season 2026",
+    "headingLine1": "The Pulse of",
+    "headingLine2": "Motorsport",
+    "readArticles": "Read Articles",
+    "raceCalendar": "Race Calendar"
+  },
+  "nextRace": {
+    "title": "Next Race",
+    "round": "Round",
+    "days": "Days",
+    "hours": "Hours",
+    "min": "Min",
+    "sec": "Sec",
+    "raceComplete": "Race Complete",
+    "viewCalendar": "View full calendar"
+  },
+  "latestPosts": {
+    "heading": "Latest Articles",
+    "viewAll": "View all",
+    "viewAllMobile": "View all articles"
+  },
+  "posts": {
+    "heading": "All Articles",
+    "metaDescription": "All articles about Formula 1 — regulations, race recaps, technical analysis, and explainers.",
+    "minRead": "min read",
+    "readMore": "Read more",
+    "noArticles": "No articles found.",
+    "backToArticles": "Back to articles",
+    "backToAll": "Back to all articles",
+    "notFound": "Post Not Found"
+  },
+  "calendar": {
+    "heading": "F1 2026 Race Calendar",
+    "metaDescription": "Complete 2026 Formula 1 race calendar with session times in US Eastern (ET) and Brazil (BRT) timezones.",
+    "timezoneIntro": "All session times shown in",
+    "timezoneET": "US Eastern (ET)",
+    "and": "and",
+    "timezoneBRT": "Brazil (BRT)",
+    "timezoneSuffix": "timezones. Times automatically adjust for daylight saving.",
+    "session": "Session",
+    "etLabel": "ET (US)",
+    "brtLabel": "BRT (BR)",
+    "next": "NEXT",
+    "completed": "COMPLETED",
+    "sprint": "SPRINT",
+    "sprintQuali": "Sprint Quali",
+    "sprintRace": "Sprint",
+    "fp1": "FP1",
+    "fp2": "FP2",
+    "fp3": "FP3",
+    "qualifying": "Qualifying",
+    "race": "Race"
+  },
+  "standings": {
+    "heading": "F1 2026 Championship Standings",
+    "metaDescription": "Live Formula 1 2026 driver and constructor championship standings.",
+    "apiCredit": "Live standings calculated from race and sprint results via the",
+    "apiSuffix": "API.",
+    "drivers": "Drivers",
+    "constructors": "Constructors",
+    "pts": "PTS",
+    "win": "WIN",
+    "wins": "WINS",
+    "failedToLoad": "Failed to load standings"
+  },
+  "about": {
+    "heading": "About GridLine Club",
+    "metaDescription": "About GridLine Club — a motorsport blog covering Formula 1 regulations, race recaps, and technical analysis.",
+    "intro": "<strong>GridLine Club</strong> is a motorsport blog dedicated to bringing you in-depth coverage of Formula 1 and the wider world of racing. We cover race weekends, break down regulations, explain the technical side of the sport, and help newcomers understand what makes motorsport so thrilling.",
+    "whatWeCover": "What We Cover",
+    "coverRecaps": "<strong>Race Recaps</strong> — Post-race analysis, key moments, and results from every Grand Prix weekend.",
+    "coverRegulations": "<strong>Regulations</strong> — Deep dives into FIA rule changes, cost cap updates, and how regulations shape the sport.",
+    "coverTechnical": "<strong>Technical Analysis</strong> — How F1 cars work, aerodynamic concepts, power unit technology, and engineering innovations.",
+    "coverHowItWorks": "<strong>How It Works</strong> — Beginner-friendly explainers covering tire strategy, qualifying formats, sprint races, and more.",
+    "raceCalendar": "Race Calendar",
+    "calendarDesc": "We maintain a complete F1 race calendar with session times in both US Eastern (ET) and Brazilian (BRT) timezones, plus a countdown to the next race. Never miss a session again.",
+    "ourMission": "Our Mission",
+    "missionDesc": "Whether you're a lifelong motorsport fan or just discovering the thrill of racing, GridLine Club aims to be your go-to resource for understanding and enjoying the sport. We believe that the best way to appreciate motorsport is to understand the details behind it — the strategies, the engineering, and the rules that create the spectacle we all love."
+  },
+  "footer": {
+    "navigate": "Navigate",
+    "raceCalendar": "Race Calendar",
+    "categories": "Categories",
+    "copyright": "All rights reserved.",
+    "builtWith": "A love letter to motorsport."
+  },
+  "notFound": {
+    "heading": "404",
+    "text": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home"
+  },
+  "categories": {
+    "regulations": { "name": "Regulations", "description": "Rule changes, FIA directives, and regulatory analysis" },
+    "race-recaps": { "name": "Race Recaps", "description": "Post-race analysis, key moments, and results breakdown" },
+    "technical": { "name": "Technical", "description": "Car design, engineering, aerodynamics, and development" },
+    "how-it-works": { "name": "How It Works", "description": "Explainers for newcomers and deep dives into how F1 operates" }
+  },
+  "categoryPage": {
+    "allArticles": "All articles",
+    "notFound": "Category Not Found"
+  }
+}
