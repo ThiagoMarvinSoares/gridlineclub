@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { DriverStanding, ConstructorStanding } from "@/lib/types";
 import DriverStandings from "@/components/standings/DriverStandings";
 import ConstructorStandings from "@/components/standings/ConstructorStandings";
+import { computeStandings } from "@/lib/openf1";
 import { clsx } from "clsx";
 
 type Tab = "drivers" | "constructors";
@@ -17,11 +18,7 @@ export default function StandingsClient({ dict }: { dict: any }) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/standings")
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
+    computeStandings(2026)
       .then(({ drivers, constructors }) => {
         setDrivers(drivers);
         setConstructors(constructors);
