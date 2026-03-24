@@ -22,10 +22,8 @@ export default function Header({ dict, locale }: { dict: any; locale: string }) 
             <Image
               src="/images/logo.png"
               alt="GridLine Club"
-              width={280}
-              height={72}
-              className="w-auto"
-              style={{ width: "auto", height: "5rem" }}
+              width={200}
+              height={60}
               priority
             />
           </Link>

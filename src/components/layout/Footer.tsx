@@ -16,7 +16,6 @@ export default function Footer({ dict, locale }: { dict: any; locale: string }) 
                 width={200}
                 height={56}
                 className="h-14 w-auto"
-                style={{ width: "auto", height: "3.5rem" }}
               />
             </Link>
             <p className="mt-3 text-sm text-text-secondary">
