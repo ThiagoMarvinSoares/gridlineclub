@@ -30,8 +30,11 @@ export default function Post() {
       <p>
         The opening lap set the tone in Shanghai. Sprint-carryover incidents and early
         skirmishes left several midfield runners carrying slight damage into the first stint,
-        costing them lap time and reshuffling the order. The Mercedes pair escaped unscathed
-        and used clean air to dictate the early tempo.
+        costing them lap time and reshuffling the order. Kimi Antonelli took the best advantage
+        of the clean air at the front, quickly building a gap while the Ferraris of Hamilton and
+        Leclerc battled each other for position behind the Mercedes duo. The intra-team Ferrari
+        dispute cost both drivers precious seconds and allowed Mercedes to stretch their lead
+        unchallenged through the opening phase.
       </p>
       <p>
         A <strong>Safety Car on Lap 11</strong> followed mid-pack contact that left debris on
@@ -45,10 +48,6 @@ export default function Post() {
         <li>
           <strong>Lap 9:</strong> Liam Lawson passed Isack Hadjar on the outside through Turns
           13-14, forcing Hadjar into an early tyre-preservation stint.
-        </li>
-        <li>
-          <strong>Lap 14:</strong> Antonelli out-braked Russell into Turn 1 to take the lead,
-          then managed degradation from the front for the next 30 laps.
         </li>
         <li>
           <strong>Lap 28:</strong> Hamilton used DRS down the back straight to overtake Leclerc

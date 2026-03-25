@@ -30,8 +30,11 @@ export default function Post() {
       <p>
         A primeira volta deu o tom em Xangai. Incidentes vindos da sprint e disputas iniciais
         deixaram vários pilotos do meio do grid com danos leves no primeiro stint, custando
-        tempo de volta e reorganizando a ordem. A dupla da Mercedes escapou ilesa e usou ar
-        limpo para ditar o ritmo inicial.
+        tempo de volta e reorganizando a ordem. Kimi Antonelli tirou o melhor proveito do ar
+        limpo na frente, construindo rapidamente uma vantagem enquanto as Ferraris de Hamilton e
+        Leclerc disputavam posição entre si atrás da dupla da Mercedes. A briga interna da Ferrari
+        custou segundos preciosos a ambos os pilotos e permitiu que a Mercedes ampliasse sua
+        liderança sem ser ameaçada durante a fase inicial.
       </p>
       <p>
         Um <strong>Safety Car na Volta 11</strong> foi acionado após contato no meio do pelotão
@@ -45,10 +48,6 @@ export default function Post() {
         <li>
           <strong>Volta 9:</strong> Lawson ultrapassou Hadjar por fora nas Curvas 13-14,
           forçando Hadjar a um stint inicial de preservação de pneus.
-        </li>
-        <li>
-          <strong>Volta 14:</strong> Antonelli freou mais tarde que Russell na Curva 1 para
-          assumir a liderança, administrando a degradação pela frente nas 30 voltas seguintes.
         </li>
         <li>
           <strong>Volta 28:</strong> Hamilton usou o DRS na reta principal para ultrapassar
