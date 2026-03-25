@@ -23,7 +23,7 @@ export default async function PostsPage({ params }: { params: Promise<{ locale: 
   return (
     <div className="py-12">
       <Container>
-        <SectionHeading>{dict.posts.heading}</SectionHeading>
+        <SectionHeading as="h1">{dict.posts.heading}</SectionHeading>
         <div className="mt-8">
           <PostGrid posts={posts} dict={{ ...dict.posts, categories: dict.categories }} locale={locale} />
         </div>

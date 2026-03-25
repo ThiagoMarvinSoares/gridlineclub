@@ -3,12 +3,14 @@ import { clsx } from "clsx";
 export default function SectionHeading({
   children,
   className,
+  as: Tag = "h2",
 }: {
   children: React.ReactNode;
   className?: string;
+  as?: "h1" | "h2" | "h3";
 }) {
   return (
-    <h2
+    <Tag
       className={clsx(
         "font-heading text-2xl font-bold tracking-tight text-text-primary sm:text-3xl",
         className
@@ -17,6 +19,6 @@ export default function SectionHeading({
       <span className="inline-block border-b-2 border-racing-red pb-1">
         {children}
       </span>
-    </h2>
+    </Tag>
   );
 }

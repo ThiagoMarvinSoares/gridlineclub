@@ -58,12 +58,12 @@ export const posts: PostEntry[] = [
     slug: "active-aerodynamics-2026-explained",
     meta: {
       en: {
-        title: "Active Aerodynamics in 2026: How F1's New Wings Work",
+        title: "Active Aero in 2026: How F1's New Wings Work",
         excerpt:
           "For the first time in modern F1, cars feature wings that change shape mid-lap. A deep dive into Z-mode, active front and rear wings, and how they transform racing in the new era.",
       },
       "pt-br": {
-        title: "Aerodinâmica Ativa em 2026: Como Funcionam as Novas Asas da F1",
+        title: "Aerodinâmica Ativa 2026: As Novas Asas da F1",
         excerpt:
           "Pela primeira vez na F1 moderna, os carros possuem asas que mudam de forma durante a volta. Um mergulho profundo no Z-mode, asas dianteira e traseira ativas, e como elas transformam as corridas na nova era.",
       },
@@ -84,7 +84,7 @@ export const posts: PostEntry[] = [
           "The 2026 season kicks off in Melbourne with the new regulations in full effect. Drama, overtakes, and the first glimpse of the new era of Formula 1.",
       },
       "pt-br": {
-        title: "GP da Austrália 2026: Resumo da Abertura de Temporada",
+        title: "GP da Austrália 2026: Resumo da Abertura",
         excerpt:
           "A temporada 2026 começa em Melbourne com os novos regulamentos em pleno vigor. Drama, ultrapassagens e o primeiro vislumbre da nova era da Fórmula 1.",
       },

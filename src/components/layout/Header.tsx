@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Container from "@/components/ui/Container";
 import MobileNav from "./MobileNav";
-import clsx from "clsx";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Header({ dict, locale }: { dict: any; locale: string }) {
@@ -39,10 +39,7 @@ export default function Header({ dict, locale }: { dict: any; locale: string }) 
               </Link>
             ))}
 
-            <div className="flex items-center gap-1 ml-6 border-l border-border pl-6">
-              <a href="/en" className={clsx("px-2 py-1 text-xs font-bold rounded", locale === "en" ? "bg-racing-red text-white" : "text-text-muted hover:text-text-primary")}>EN</a>
-              <a href="/pt-br" className={clsx("px-2 py-1 text-xs font-bold rounded", locale === "pt-br" ? "bg-racing-red text-white" : "text-text-muted hover:text-text-primary")}>BR</a>
-            </div>
+            <LanguageSwitcher locale={locale} className="ml-6 border-l border-border pl-6" />
           </nav>
 
           <MobileNav dict={dict} locale={locale} />

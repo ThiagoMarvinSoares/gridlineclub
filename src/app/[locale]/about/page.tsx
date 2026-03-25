@@ -20,7 +20,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   return (
     <div className="py-12">
       <Container className="max-w-3xl">
-        <SectionHeading>{dict.about.heading}</SectionHeading>
+        <SectionHeading as="h1">{dict.about.heading}</SectionHeading>
         <div className="prose-racing mt-8 text-lg">
           <p dangerouslySetInnerHTML={{ __html: dict.about.intro }} />
           <h2>{dict.about.whatWeCover}</h2>

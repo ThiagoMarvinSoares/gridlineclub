@@ -28,7 +28,7 @@ export default async function CalendarPage({ params }: { params: Promise<{ local
     <div className="py-12">
       <Container>
         <div className="mb-4">
-          <SectionHeading>{dict.calendar.heading}</SectionHeading>
+          <SectionHeading as="h1">{dict.calendar.heading}</SectionHeading>
           <p className="mt-3 text-text-secondary">
             {dict.calendar.timezoneIntro}{" "}
             <span className="font-bold text-racing-orange">{dict.calendar.timezoneET}</span>{" "}

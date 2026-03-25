@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import clsx from "clsx";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function MobileNav({ dict, locale }: { dict: any; locale: string }) {
@@ -48,10 +48,7 @@ export default function MobileNav({ dict, locale }: { dict: any; locale: string 
               </Link>
             ))}
 
-            <div className="flex items-center gap-2 pt-4">
-              <a href="/en" className={clsx("px-3 py-1.5 text-sm font-bold rounded", locale === "en" ? "bg-racing-red text-white" : "text-text-muted hover:text-text-primary")}>EN</a>
-              <a href="/pt-br" className={clsx("px-3 py-1.5 text-sm font-bold rounded", locale === "pt-br" ? "bg-racing-red text-white" : "text-text-muted hover:text-text-primary")}>BR</a>
-            </div>
+            <LanguageSwitcher locale={locale} className="pt-4" />
           </nav>
         </div>
       )}
