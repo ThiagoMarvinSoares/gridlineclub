@@ -96,4 +96,25 @@ export const posts: PostEntry[] = [
     readingTime: 5,
     tags: ["race-recap", "australian-gp", "2026-season", "melbourne"],
   },
+  {
+    slug: "2026-chinese-gp-recap",
+    meta: {
+      en: {
+        title: "2026 Chinese GP: Antonelli's Maiden Win",
+        excerpt:
+          "Kimi Antonelli claimed his first victory as Mercedes scored a dominant 1-2 at Shanghai. Full race recap, strategy analysis, and championship implications.",
+      },
+      "pt-br": {
+        title: "GP da China 2026: Primeira Vitória de Antonelli",
+        excerpt:
+          "Kimi Antonelli conquistou sua primeira vitória com a Mercedes fazendo 1-2 em Xangai. Resumo completo da corrida, análise estratégica e implicações no campeonato.",
+      },
+    },
+    series: "f1",
+    category: "race-recaps",
+    publishedAt: "2026-03-23",
+    author: "GridLine Club Team",
+    readingTime: 8,
+    tags: ["race-recap", "chinese-gp", "2026-season", "shanghai", "antonelli", "mercedes"],
+  },
 ];
