@@ -17,7 +17,9 @@
     "headingLine1": "O Pulso do",
     "headingLine2": "Automobilismo",
     "readArticles": "Ler Artigos",
-    "raceCalendar": "Calendário de Corridas"
+    "raceCalendar": "Calendário de Corridas",
+    "introHeading": "O Que Você Vai Encontrar Aqui",
+    "introText": "De resumos de corridas e classificação do campeonato a análises profundas sobre regulamentos técnicos e estratégia de pneus, o GridLine Club cobre todos os ângulos da Fórmula 1. Acompanhe a temporada 2026 com calendários de corridas mostrando horários nos fusos de Brasília e Leste dos EUA, análises pós-corrida detalhadas e explicações acessíveis que tornam o esporte compreensível para todos."
   },
   "nextRace": {
     "title": "Próxima Corrida",
@@ -35,7 +37,7 @@
     "viewAllMobile": "Ver todos os artigos"
   },
   "posts": {
-    "heading": "Todos os Artigos",
+    "heading": "Artigos F1, Resumos de Corridas e Análises",
     "metaDescription": "Todos os artigos sobre Fórmula 1 — regulamentos, resumos de corridas, análises técnicas e explicações.",
     "minRead": "min de leitura",
     "readMore": "Leia mais",

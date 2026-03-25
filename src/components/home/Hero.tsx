@@ -45,6 +45,15 @@ export default function Hero({ dict, locale, description }: { dict: any; locale:
               {dict.raceCalendar}
             </Link>
           </div>
+
+          <div className="mx-auto mt-16 max-w-3xl rounded-xl border border-border bg-surface/50 p-8 text-center">
+            <h2 className="font-heading text-xl font-bold text-text-primary sm:text-2xl">
+              {dict.introHeading}
+            </h2>
+            <p className="mt-4 text-text-secondary leading-relaxed">
+              {dict.introText}
+            </p>
+          </div>
         </div>
       </div>
     </section>

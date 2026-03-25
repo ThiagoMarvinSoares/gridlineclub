@@ -22,6 +22,9 @@ export async function generateMetadata({
       template: `%s | ${dict.site.name}`,
     },
     description: dict.site.description,
+    keywords: locale === "pt-br"
+      ? ["formula 1", "f1", "automobilismo", "corridas", "calendario f1", "classificação f1", "regulamentos f1", "gridline club"]
+      : ["formula 1", "f1", "motorsport", "racing", "f1 calendar", "f1 standings", "f1 regulations", "gridline club"],
   };
 }
 

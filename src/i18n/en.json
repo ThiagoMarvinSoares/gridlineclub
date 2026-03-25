@@ -17,7 +17,9 @@
     "headingLine1": "The Pulse of",
     "headingLine2": "Motorsport",
     "readArticles": "Read Articles",
-    "raceCalendar": "Race Calendar"
+    "raceCalendar": "Race Calendar",
+    "introHeading": "What You'll Find Here",
+    "introText": "From race recaps and championship standings to deep dives into technical regulations and tire strategy, GridLine Club covers every angle of Formula 1. Follow the 2026 season with race calendars showing times in US Eastern and Brazilian timezones, detailed post-race analysis, and beginner-friendly explainers that make the sport accessible to everyone."
   },
   "nextRace": {
     "title": "Next Race",
@@ -35,7 +37,7 @@
     "viewAllMobile": "View all articles"
   },
   "posts": {
-    "heading": "All Articles",
+    "heading": "F1 Articles, Race Recaps & Analysis",
     "metaDescription": "All articles about Formula 1 — regulations, race recaps, technical analysis, and explainers.",
     "minRead": "min read",
     "readMore": "Read more",
