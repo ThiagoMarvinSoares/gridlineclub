@@ -43,26 +43,6 @@ export default function Post() {
         perfectly, keeping both position and tyre temperature while rivals were forced into
         more aggressive recovery plans.
       </p>
-      <h2>Overtakes to Watch</h2>
-      <ul>
-        <li>
-          <strong>Lap 9:</strong> Liam Lawson passed Isack Hadjar on the outside through Turns
-          13-14, forcing Hadjar into an early tyre-preservation stint.
-        </li>
-        <li>
-          <strong>Lap 28:</strong> Hamilton used DRS down the back straight to overtake Leclerc
-          for P3, a move that left Ferrari short of pace to challenge Mercedes.
-        </li>
-        <li>
-          <strong>Lap 37:</strong> Bearman braked late into the hairpin to take P5 from Gasly,
-          forcing Alpine to alter its stop sequence.
-        </li>
-        <li>
-          <strong>Lap 51:</strong> Hadjar charged through the middle sector to pass Sainz,
-          recovering positions after his earlier spin to salvage P8.
-        </li>
-      </ul>
-
       <h2>Why One-Stops Won in Shanghai</h2>
       <p>
         Mercedes&apos; one-stop strategy triumphed by aligning stint length with tyre life and

@@ -43,26 +43,6 @@ export default function Post() {
         longo. A Mercedes administrou o restart perfeitamente, mantendo posição e temperatura
         dos pneus enquanto rivais foram forçados a planos de recuperação mais agressivos.
       </p>
-      <h2>Ultrapassagens para Assistir</h2>
-      <ul>
-        <li>
-          <strong>Volta 9:</strong> Lawson ultrapassou Hadjar por fora nas Curvas 13-14,
-          forçando Hadjar a um stint inicial de preservação de pneus.
-        </li>
-        <li>
-          <strong>Volta 28:</strong> Hamilton usou o DRS na reta principal para ultrapassar
-          Leclerc pelo P3, deixando a Ferrari sem ritmo para desafiar a Mercedes.
-        </li>
-        <li>
-          <strong>Volta 37:</strong> Bearman freou tarde no hairpin para tomar o P5 de Gasly,
-          forçando a Alpine a alterar sua sequência de paradas.
-        </li>
-        <li>
-          <strong>Volta 51:</strong> Hadjar avançou pelo setor intermediário para ultrapassar
-          Sainz, recuperando posições após seu giro anterior para salvar o P8.
-        </li>
-      </ul>
-
       <h2>Por Que a Estratégia de Uma Parada Venceu em Xangai</h2>
       <p>
         A estratégia de uma parada da Mercedes triunfou ao alinhar a duração do stint com a
