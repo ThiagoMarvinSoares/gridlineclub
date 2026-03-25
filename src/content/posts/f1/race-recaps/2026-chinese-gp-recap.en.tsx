@@ -84,6 +84,8 @@ export default function Post() {
       <ul>
         <li><strong>Kimi Antonelli</strong> &mdash; Maiden victory with disciplined tyre management and error-free stints.</li>
         <li><strong>Mercedes</strong> &mdash; Flawless one-two through precise pit stops and race control.</li>
+        <li><strong>Lewis Hamilton</strong> &mdash; Secured his first podium for Ferrari, proving he can deliver from day one in red.</li>
+        <li><strong>Ferrari</strong> &mdash; The only team that came close to challenging Mercedes, with both cars in the top four.</li>
         <li><strong>Oliver Bearman</strong> &mdash; Smart overtakes and tyre stewardship secured P5 and valuable points for Haas.</li>
         <li><strong>Alpine</strong> &mdash; Both cars in the points highlighted a strong recovery.</li>
         <li><strong>Carlos Sainz</strong> &mdash; Scored for Williams, showcasing ongoing development progress.</li>

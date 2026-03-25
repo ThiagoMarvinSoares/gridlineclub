@@ -85,6 +85,8 @@ export default function Post() {
       <ul>
         <li><strong>Kimi Antonelli</strong> &mdash; Primeira vitória com gestão disciplinada de pneus e stints sem erros.</li>
         <li><strong>Mercedes</strong> &mdash; Dobradinha impecável com pit stops precisos e controle de corrida.</li>
+        <li><strong>Lewis Hamilton</strong> &mdash; Conquistou seu primeiro pódio pela Ferrari, provando que pode entregar desde o primeiro dia de vermelho.</li>
+        <li><strong>Ferrari</strong> &mdash; A única equipe que chegou perto de disputar com a Mercedes, com ambos os carros no top 4.</li>
         <li><strong>Oliver Bearman</strong> &mdash; Ultrapassagens inteligentes e cuidado com pneus garantiram P5 e pontos valiosos para a Haas.</li>
         <li><strong>Alpine</strong> &mdash; Ambos os carros nos pontos destacaram uma forte recuperação.</li>
         <li><strong>Carlos Sainz</strong> &mdash; Pontuou pela Williams, mostrando progresso no desenvolvimento.</li>
