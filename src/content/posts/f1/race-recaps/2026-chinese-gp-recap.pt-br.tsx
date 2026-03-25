@@ -40,14 +40,6 @@ export default function Post() {
         longo. A Mercedes administrou o restart perfeitamente, mantendo posição e temperatura
         dos pneus enquanto rivais foram forçados a planos de recuperação mais agressivos.
       </p>
-      <p>
-        O <strong>abandono de Verstappen na Volta 45</strong> por falha técnica removeu a
-        referência de ritmo mais rápido e aliviou a pressão imediata sobre a Mercedes,
-        permitindo que a equipe gerenciasse risco e desgaste de pneus nas voltas finais. A
-        saída de Alonso na Volta 32 e uma colisão pós-pit entre Ocon e Colapinto reorganizaram
-        o meio do grid, promovendo Bearman e Gasly para a zona de pontos.
-      </p>
-
       <h2>Ultrapassagens para Assistir</h2>
       <ul>
         <li>

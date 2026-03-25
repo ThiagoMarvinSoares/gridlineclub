@@ -40,14 +40,6 @@ export default function Post() {
         perfectly, keeping both position and tyre temperature while rivals were forced into
         more aggressive recovery plans.
       </p>
-      <p>
-        <strong>Max Verstappen&apos;s Lap 45 retirement</strong> due to a technical failure
-        removed the fastest benchmark and eased immediate pressure on Mercedes, allowing the
-        team to manage risk and tyre wear through the closing stages. Fernando Alonso&apos;s Lap
-        32 exit and a post-pit collision between Esteban Ocon and Franco Colapinto further
-        reshuffled the midfield, promoting Bearman and Gasly into the points.
-      </p>
-
       <h2>Overtakes to Watch</h2>
       <ul>
         <li>
