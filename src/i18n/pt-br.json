@@ -111,6 +111,7 @@
   "categories": {
     "regulations": { "name": "Regulamentos", "description": "Mudanças de regras, diretivas da FIA e análise regulatória" },
     "race-recaps": { "name": "Resumos de Corridas", "description": "Análise pós-corrida, momentos-chave e detalhamento de resultados" },
+    "race-preview": { "name": "Preview de Corrida", "description": "Análise pré-corrida, dados dos treinos, previsões de classificação e palpite de vencedor" },
     "technical": { "name": "Técnico", "description": "Design de carros, engenharia, aerodinâmica e desenvolvimento" },
     "how-it-works": { "name": "Como Funciona", "description": "Explicações para iniciantes e mergulhos profundos em como a F1 opera" }
   },

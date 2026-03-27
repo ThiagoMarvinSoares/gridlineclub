@@ -43,6 +43,7 @@ export default function Footer({ dict, locale }: { dict: any; locale: string }) 
             <ul className="mt-3 space-y-2 text-sm">
               <li><Link href={`/${locale}/category/regulations`} className="text-text-secondary hover:text-racing-red transition-colors">{dict.categories.regulations.name}</Link></li>
               <li><Link href={`/${locale}/category/race-recaps`} className="text-text-secondary hover:text-racing-red transition-colors">{dict.categories["race-recaps"].name}</Link></li>
+              <li><Link href={`/${locale}/category/race-preview`} className="text-text-secondary hover:text-racing-red transition-colors">{dict.categories["race-preview"].name}</Link></li>
               <li><Link href={`/${locale}/category/technical`} className="text-text-secondary hover:text-racing-red transition-colors">{dict.categories.technical.name}</Link></li>
               <li><Link href={`/${locale}/category/how-it-works`} className="text-text-secondary hover:text-racing-red transition-colors">{dict.categories["how-it-works"].name}</Link></li>
             </ul>

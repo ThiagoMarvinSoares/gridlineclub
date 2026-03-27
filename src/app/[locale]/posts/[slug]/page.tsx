@@ -30,8 +30,8 @@ const postComponents: Record<string, Record<string, React.ComponentType>> = {
     "pt-br": dynamic(() => import("@/content/posts/f1/race-recaps/2026-chinese-gp-recap.pt-br")),
   },
   "2026-japanese-gp-preview": {
-    en: dynamic(() => import("@/content/posts/f1/race-recaps/2026-japanese-gp-preview.en")),
-    "pt-br": dynamic(() => import("@/content/posts/f1/race-recaps/2026-japanese-gp-preview.pt-br")),
+    en: dynamic(() => import("@/content/posts/f1/race-preview/2026-japanese-gp-preview.en")),
+    "pt-br": dynamic(() => import("@/content/posts/f1/race-preview/2026-japanese-gp-preview.pt-br")),
   },
 };
 

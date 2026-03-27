@@ -4,7 +4,7 @@ export interface PostEntry {
   slug: string;
   meta: Record<Locale, { title: string; excerpt: string }>;
   series: "f1";
-  category: "regulations" | "race-recaps" | "technical" | "how-it-works";
+  category: "regulations" | "race-recaps" | "race-preview" | "technical" | "how-it-works";
   publishedAt: string;
   author: string;
   readingTime: number;
@@ -132,7 +132,7 @@ export const posts: PostEntry[] = [
       },
     },
     series: "f1",
-    category: "race-recaps",
+    category: "race-preview",
     publishedAt: "2026-03-27",
     author: "GridLine Club Team",
     readingTime: 10,

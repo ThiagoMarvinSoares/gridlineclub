@@ -14,6 +14,12 @@ export const categories: CategoryInfo[] = [
     color: "#ff6b00",
   },
   {
+    slug: "race-preview",
+    name: "Race Preview",
+    description: "Pre-race analysis, practice data, qualifying predictions, and race winner picks",
+    color: "#a855f7",
+  },
+  {
     slug: "technical",
     name: "Technical",
     description: "Car design, engineering, aerodynamics, and development",
