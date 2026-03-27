@@ -117,4 +117,25 @@ export const posts: PostEntry[] = [
     readingTime: 8,
     tags: ["race-recap", "chinese-gp", "2026-season", "shanghai", "antonelli", "mercedes"],
   },
+  {
+    slug: "2026-japanese-gp-preview",
+    meta: {
+      en: {
+        title: "Japanese GP 2026: Qualifying & Race Preview",
+        excerpt:
+          "Mercedes arrives at Suzuka as the team to beat after two dominant wins. Practice data, qualifying predictions, tyre strategy, and our race winner pick for Round 3.",
+      },
+      "pt-br": {
+        title: "GP do Japão 2026: Preview de Classificação e Corrida",
+        excerpt:
+          "A Mercedes chega a Suzuka como a equipe a ser batida após duas vitórias dominantes. Dados dos treinos, previsões de classificação, estratégia de pneus e nossa previsão de vencedor para a Etapa 3.",
+      },
+    },
+    series: "f1",
+    category: "race-recaps",
+    publishedAt: "2026-03-27",
+    author: "GridLine Club Team",
+    readingTime: 10,
+    tags: ["race-preview", "japanese-gp", "2026-season", "suzuka", "predictions", "mercedes", "ferrari"],
+  },
 ];

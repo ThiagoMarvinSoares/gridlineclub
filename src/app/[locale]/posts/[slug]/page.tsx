@@ -29,6 +29,10 @@ const postComponents: Record<string, Record<string, React.ComponentType>> = {
     en: dynamic(() => import("@/content/posts/f1/race-recaps/2026-chinese-gp-recap.en")),
     "pt-br": dynamic(() => import("@/content/posts/f1/race-recaps/2026-chinese-gp-recap.pt-br")),
   },
+  "2026-japanese-gp-preview": {
+    en: dynamic(() => import("@/content/posts/f1/race-recaps/2026-japanese-gp-preview.en")),
+    "pt-br": dynamic(() => import("@/content/posts/f1/race-recaps/2026-japanese-gp-preview.pt-br")),
+  },
 };
 
 export function generateStaticParams() {
