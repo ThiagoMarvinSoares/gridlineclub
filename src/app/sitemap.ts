@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { locales } from "@/i18n/config";
 import { posts } from "@/content/registry";
 import { categories } from "@/data/categories";
+import { f1Calendar2026 } from "@/data/f1-2026-calendar";
 
 const BASE_URL = "https://gridlineclub.com";
 
@@ -42,6 +43,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(post.publishedAt),
         changeFrequency: "monthly",
         priority: 0.9,
+      });
+    }
+  }
+
+  // Race event pages
+  for (const locale of locales) {
+    for (const race of f1Calendar2026) {
+      entries.push({
+        url: `${BASE_URL}/${locale}/race/${race.round}`,
+        lastModified: new Date(race.dateStart),
+        changeFrequency: "weekly",
+        priority: 0.8,
       });
     }
   }
