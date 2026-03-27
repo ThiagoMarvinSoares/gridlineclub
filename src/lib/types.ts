@@ -107,3 +107,19 @@ export interface ConstructorStanding {
   wins: number;
   drivers: string[];
 }
+
+// Race event session results
+export interface SessionResult {
+  position: number;
+  driverNumber: number;
+  fullName: string;
+  nameAcronym: string;
+  teamName: string;
+  teamColour: string;
+  headshotUrl: string;
+  time: string;
+  gap: string;
+  laps: number;
+}
+
+export type SessionTab = "fp1" | "fp2" | "fp3" | "qualifying" | "race" | "sprint" | "sprintQualifying";

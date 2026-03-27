@@ -6,7 +6,7 @@
   },
   "nav": {
     "home": "Início",
-    "calendar": "Calendário",
+    "calendar": "Calendário e Resultados",
     "standings": "Classificação",
     "articles": "Artigos",
     "about": "Sobre",
@@ -66,7 +66,8 @@
     "fp2": "TL2",
     "fp3": "TL3",
     "qualifying": "Classificação",
-    "race": "Corrida"
+    "race": "Corrida",
+    "viewResults": "Ver Resultados"
   },
   "standings": {
     "heading": "Classificação do Campeonato F1 2026",
@@ -112,6 +113,29 @@
     "race-recaps": { "name": "Resumos de Corridas", "description": "Análise pós-corrida, momentos-chave e detalhamento de resultados" },
     "technical": { "name": "Técnico", "description": "Design de carros, engenharia, aerodinâmica e desenvolvimento" },
     "how-it-works": { "name": "Como Funciona", "description": "Explicações para iniciantes e mergulhos profundos em como a F1 opera" }
+  },
+  "raceEvent": {
+    "results": "Resultados",
+    "sessionResults": "resultados e classificação das sessões",
+    "fp1": "TL1",
+    "fp2": "TL2",
+    "fp3": "TL3",
+    "qualifying": "Classificação",
+    "race": "Corrida",
+    "sprint": "Sprint",
+    "sprintQualifying": "Quali Sprint",
+    "pos": "POS",
+    "driver": "PILOTO",
+    "team": "EQUIPE",
+    "gap": "GAP",
+    "laps": "VOLTAS",
+    "time": "TEMPO",
+    "sessionInProgress": "Sessão em andamento",
+    "liveRefreshNote": "Os resultados aparecerão quando a sessão terminar",
+    "sessionNotStarted": "Sessão ainda não iniciou",
+    "noDataAvailable": "Sem dados disponíveis para esta sessão",
+    "failedToLoad": "Falha ao carregar resultados",
+    "viewResults": "Ver Resultados"
   },
   "categoryPage": {
     "allArticles": "Todos os artigos",

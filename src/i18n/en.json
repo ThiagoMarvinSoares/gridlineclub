@@ -6,7 +6,7 @@
   },
   "nav": {
     "home": "Home",
-    "calendar": "Calendar",
+    "calendar": "Calendar & Results",
     "standings": "Standings",
     "articles": "Articles",
     "about": "About",
@@ -66,7 +66,8 @@
     "fp2": "FP2",
     "fp3": "FP3",
     "qualifying": "Qualifying",
-    "race": "Race"
+    "race": "Race",
+    "viewResults": "View Results"
   },
   "standings": {
     "heading": "F1 2026 Championship Standings",
@@ -112,6 +113,29 @@
     "race-recaps": { "name": "Race Recaps", "description": "Post-race analysis, key moments, and results breakdown" },
     "technical": { "name": "Technical", "description": "Car design, engineering, aerodynamics, and development" },
     "how-it-works": { "name": "How It Works", "description": "Explainers for newcomers and deep dives into how F1 operates" }
+  },
+  "raceEvent": {
+    "results": "Results",
+    "sessionResults": "session results and classification",
+    "fp1": "FP1",
+    "fp2": "FP2",
+    "fp3": "FP3",
+    "qualifying": "Qualifying",
+    "race": "Race",
+    "sprint": "Sprint",
+    "sprintQualifying": "Sprint Quali",
+    "pos": "POS",
+    "driver": "DRIVER",
+    "team": "TEAM",
+    "gap": "GAP",
+    "laps": "LAPS",
+    "time": "TIME",
+    "sessionInProgress": "Session in progress",
+    "liveRefreshNote": "Results will appear when the session ends",
+    "sessionNotStarted": "Session not started yet",
+    "noDataAvailable": "No data available for this session",
+    "failedToLoad": "Failed to load results",
+    "viewResults": "View Results"
   },
   "categoryPage": {
     "allArticles": "All articles",
