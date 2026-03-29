@@ -28,13 +28,22 @@ export default function SessionResultsTable({
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-border bg-surface">
-      {/* Header */}
-      <div className="grid grid-cols-[3rem_1fr_1fr_7rem_3.5rem] items-center gap-2 border-b border-border bg-surface-light px-4 py-3 text-xs font-bold uppercase tracking-wider text-text-muted sm:grid-cols-[3rem_2.5rem_1fr_1fr_7rem_3.5rem]">
+    <div className="rounded-xl border border-border bg-surface">
+      {/* Desktop header */}
+      <div className="hidden items-center gap-2 border-b border-border bg-surface-light px-4 py-3 text-xs font-bold uppercase tracking-wider text-text-muted sm:grid sm:grid-cols-[2.5rem_2.5rem_1fr_1fr_7rem_3.5rem]">
         <span>{dict.pos}</span>
-        <span className="hidden sm:block" />
+        <span />
         <span>{dict.driver}</span>
         <span>{dict.team}</span>
+        <span className="text-right">{dict.gap}</span>
+        <span className="text-right">{dict.laps}</span>
+      </div>
+
+      {/* Mobile header */}
+      <div className="grid grid-cols-[2rem_2rem_1fr_5.5rem_2.5rem] items-center gap-1.5 border-b border-border bg-surface-light px-3 py-2.5 text-[10px] font-bold uppercase tracking-wider text-text-muted sm:hidden">
+        <span>{dict.pos}</span>
+        <span />
+        <span>{dict.driver}</span>
         <span className="text-right">{dict.gap}</span>
         <span className="text-right">{dict.laps}</span>
       </div>
@@ -42,83 +51,133 @@ export default function SessionResultsTable({
       {/* Rows */}
       {results.map((r, i) => {
         const borderColor = podiumColors[r.position];
+        const firstName = r.fullName.split(" ").slice(0, -1).join(" ");
+        const lastName = r.fullName.split(" ").pop();
+
         return (
           <div
             key={r.driverNumber}
             className={clsx(
-              "grid grid-cols-[3rem_1fr_1fr_7rem_3.5rem] items-center gap-2 px-4 py-3 sm:grid-cols-[3rem_2.5rem_1fr_1fr_7rem_3.5rem]",
               i < results.length - 1 && "border-b border-border/50",
               i % 2 === 0 ? "bg-surface" : "bg-surface/80"
             )}
             style={borderColor ? { borderLeft: `3px solid ${borderColor}` } : undefined}
           >
-            {/* Position */}
-            <span
-              className={clsx(
-                "text-lg font-bold",
-                r.position <= 3 ? "text-text-primary" : "text-text-secondary"
-              )}
-            >
-              {r.position}
-            </span>
-
-            {/* Driver headshot */}
-            <div className="hidden sm:block">
-              {r.headshotUrl ? (
-                <Image
-                  src={r.headshotUrl}
-                  alt={r.fullName}
-                  width={32}
-                  height={32}
-                  className="h-8 w-8 rounded-full object-cover"
-                />
-              ) : (
-                <div
-                  className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-white"
-                  style={{ backgroundColor: `#${r.teamColour}` }}
-                >
-                  {r.nameAcronym.substring(0, 2)}
-                </div>
-              )}
-            </div>
-
-            {/* Driver name */}
-            <div className="min-w-0">
-              <span className="text-sm text-text-secondary">
-                {r.fullName.split(" ").slice(0, -1).join(" ")}{" "}
-              </span>
-              <span className="text-sm font-bold uppercase text-text-primary">
-                {r.fullName.split(" ").pop()}
-              </span>
-            </div>
-
-            {/* Team */}
-            <div className="flex items-center gap-2 min-w-0">
+            {/* Desktop row */}
+            <div className="hidden items-center gap-2 px-4 py-3 sm:grid sm:grid-cols-[2.5rem_2.5rem_1fr_1fr_7rem_3.5rem]">
               <span
-                className="hidden h-3 w-3 flex-shrink-0 rounded-full sm:block"
-                style={{ backgroundColor: `#${r.teamColour}` }}
-              />
-              <span className="truncate text-sm text-text-secondary">
-                {r.teamName}
+                className={clsx(
+                  "text-lg font-bold",
+                  r.position <= 3 ? "text-text-primary" : "text-text-secondary"
+                )}
+              >
+                {r.position}
               </span>
+
+              <div>
+                {r.headshotUrl ? (
+                  <Image
+                    src={r.headshotUrl}
+                    alt={r.fullName}
+                    width={32}
+                    height={32}
+                    className="h-8 w-8 rounded-full object-cover"
+                  />
+                ) : (
+                  <div
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-white"
+                    style={{ backgroundColor: `#${r.teamColour}` }}
+                  >
+                    {r.nameAcronym.substring(0, 2)}
+                  </div>
+                )}
+              </div>
+
+              <div className="min-w-0">
+                <span className="text-sm text-text-secondary">{firstName} </span>
+                <span className="text-sm font-bold uppercase text-text-primary">{lastName}</span>
+              </div>
+
+              <div className="flex items-center gap-2 min-w-0">
+                <span
+                  className="h-3 w-3 flex-shrink-0 rounded-full"
+                  style={{ backgroundColor: `#${r.teamColour}` }}
+                />
+                <span className="truncate text-sm text-text-secondary">{r.teamName}</span>
+              </div>
+
+              <span
+                className={clsx(
+                  "text-right font-mono text-sm",
+                  r.position === 1 ? "font-bold text-text-primary" : "text-text-secondary"
+                )}
+              >
+                {r.gap || "—"}
+              </span>
+
+              <span className="text-right text-sm text-text-muted">{r.laps || "—"}</span>
             </div>
 
-            {/* Gap */}
-            <span
-              className={clsx(
-                "text-right font-mono text-sm",
-                r.position === 1
-                  ? "font-bold text-text-primary"
-                  : "text-text-secondary"
-              )}
-            >
-              {r.gap || "—"}
-            </span>
+            {/* Mobile row */}
+            <div className="grid grid-cols-[2rem_2rem_1fr_5.5rem_2.5rem] items-center gap-1.5 px-3 py-2.5 sm:hidden">
+              {/* Position */}
+              <span
+                className={clsx(
+                  "text-base font-bold",
+                  r.position <= 3 ? "text-text-primary" : "text-text-secondary"
+                )}
+              >
+                {r.position}
+              </span>
 
-            {/* Laps */}
-            <span className="text-right text-sm text-text-muted">
-              {r.laps || "—"}
-            </span>
+              {/* Driver photo */}
+              <div>
+                {r.headshotUrl ? (
+                  <Image
+                    src={r.headshotUrl}
+                    alt={r.fullName}
+                    width={24}
+                    height={24}
+                    className="h-6 w-6 rounded-full object-cover"
+                  />
+                ) : (
+                  <div
+                    className="flex h-6 w-6 items-center justify-center rounded-full text-[8px] font-bold text-white"
+                    style={{ backgroundColor: `#${r.teamColour}` }}
+                  >
+                    {r.nameAcronym.substring(0, 2)}
+                  </div>
+                )}
+              </div>
+
+              {/* Driver name + team */}
+              <div className="min-w-0">
+                <div className="flex items-center gap-1">
+                  <span className="text-xs text-text-secondary">{firstName}</span>
+                  <span className="text-xs font-bold uppercase text-text-primary">{lastName}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span
+                    className="h-2 w-2 flex-shrink-0 rounded-full"
+                    style={{ backgroundColor: `#${r.teamColour}` }}
+                  />
+                  <span className="truncate text-[10px] text-text-muted">{r.teamName}</span>
+                </div>
+              </div>
+
+              {/* Gap */}
+              <span
+                className={clsx(
+                  "text-right font-mono text-xs",
+                  r.position === 1 ? "font-bold text-text-primary" : "text-text-secondary"
+                )}
+              >
+                {r.gap || "—"}
+              </span>
+
+              {/* Laps */}
+              <span className="text-right text-xs text-text-muted">{r.laps || "—"}</span>
+            </div>
           </div>
         );
       })}

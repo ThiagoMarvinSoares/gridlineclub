@@ -20,13 +20,45 @@ const SPRINT_POINTS: Record<number, number> = {
   6: 3, 7: 2, 8: 1,
 };
 
-// In-memory cache to avoid refetching on tab switches / re-renders
+// Cache standings in localStorage (persists across navigations)
+const STANDINGS_CACHE_KEY = "openf1_standings";
+const CACHE_TTL = 30 * 60 * 1000; // 30 minutes
+
+// In-memory fallback
 let standingsCache: {
   data: { drivers: DriverStanding[]; constructors: ConstructorStanding[] };
   timestamp: number;
 } | null = null;
 
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+function getStandingsCache(): typeof standingsCache {
+  if (standingsCache && Date.now() - standingsCache.timestamp < CACHE_TTL) {
+    return standingsCache;
+  }
+  try {
+    if (typeof window !== "undefined" && window.localStorage) {
+      const raw = localStorage.getItem(STANDINGS_CACHE_KEY);
+      if (raw) {
+        const entry = JSON.parse(raw);
+        if (Date.now() - entry.timestamp < CACHE_TTL) {
+          standingsCache = entry;
+          return entry;
+        }
+        localStorage.removeItem(STANDINGS_CACHE_KEY);
+      }
+    }
+  } catch { /* ignore */ }
+  return null;
+}
+
+function setStandingsCache(data: { drivers: DriverStanding[]; constructors: ConstructorStanding[] }) {
+  const entry = { data, timestamp: Date.now() };
+  standingsCache = entry;
+  try {
+    if (typeof window !== "undefined" && window.localStorage) {
+      localStorage.setItem(STANDINGS_CACHE_KEY, JSON.stringify(entry));
+    }
+  } catch { /* localStorage full */ }
+}
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -131,9 +163,10 @@ export async function computeStandings(year: number): Promise<{
   drivers: DriverStanding[];
   constructors: ConstructorStanding[];
 }> {
-  // Return cached data if fresh
-  if (standingsCache && Date.now() - standingsCache.timestamp < CACHE_TTL) {
-    return standingsCache.data;
+  // Return cached data if fresh (checks localStorage too)
+  const cached = getStandingsCache();
+  if (cached) {
+    return cached.data;
   }
 
   // Fetch metadata in parallel (3 lightweight calls)
@@ -252,8 +285,8 @@ export async function computeStandings(year: number): Promise<{
 
   const result = { drivers, constructors };
 
-  // Cache the result
-  standingsCache = { data: result, timestamp: Date.now() };
+  // Cache the result (memory + localStorage)
+  setStandingsCache(result);
 
   return result;
 }

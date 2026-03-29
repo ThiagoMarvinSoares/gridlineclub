@@ -9,9 +9,32 @@ export interface PostEntry {
   author: string;
   readingTime: number;
   tags: string[];
+  coverImage?: string;
 }
 
 export const posts: PostEntry[] = [
+  {
+    slug: "2026-japanese-gp-recap",
+    meta: {
+      en: {
+        title: "Japanese GP 2026: Full Race Breakdown",
+        excerpt:
+          "Antonelli wins at Suzuka to lead the championship. Bearman's 50G crash reshuffled the race, safety car strategy decided the podium, and Red Bull's struggles continue.",
+      },
+      "pt-br": {
+        title: "GP do Japão 2026: Resumo Completo da Corrida",
+        excerpt:
+          "Antonelli vence em Suzuka e lidera o campeonato. A batida de 50G de Bearman reorganizou a corrida, a estratégia de safety car decidiu o pódio e os problemas da Red Bull continuam.",
+      },
+    },
+    series: "f1",
+    category: "race-recaps",
+    publishedAt: "2026-03-29",
+    author: "GridLine Club Team",
+    readingTime: 12,
+    tags: ["race-recap", "japanese-gp", "2026-season", "antonelli", "suzuka", "safety-car"],
+    coverImage: "/images/japanese-gp-2026-cover.jpg",
+  },
   {
     slug: "understanding-2026-f1-regulations",
     meta: {

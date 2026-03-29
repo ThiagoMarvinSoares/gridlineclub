@@ -6,26 +6,29 @@ function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function fetchWithRetry<T>(url: string, retries = 3): Promise<T> {
-  for (let attempt = 0; attempt < retries; attempt++) {
-    const res = await fetch(url);
-    if (res.ok) return res.json();
-    if (res.status === 429) {
-      const wait = 1000 * Math.pow(2, attempt);
-      await sleep(wait);
-      continue;
-    }
-    throw new Error(`OpenF1 API error: ${res.status}`);
-  }
-  throw new Error("OpenF1 API: too many retries (rate limited)");
-}
-
-// Cache for session data (10 min TTL)
-const sessionCache = new Map<string, { data: unknown; timestamp: number }>();
-const CACHE_TTL = 10 * 60 * 1000;
+// Cache using localStorage (persists across page navigations and refreshes)
+// In-memory fallback for SSR/non-browser environments
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+const CACHE_PREFIX = "openf1_";
+const memoryFallback = new Map<string, { data: unknown; timestamp: number }>();
 
 function getCached<T>(key: string): T | null {
-  const entry = sessionCache.get(key);
+  try {
+    if (typeof window !== "undefined" && window.localStorage) {
+      const raw = localStorage.getItem(CACHE_PREFIX + key);
+      if (raw) {
+        const entry = JSON.parse(raw);
+        if (Date.now() - entry.timestamp < CACHE_TTL) {
+          return entry.data as T;
+        }
+        localStorage.removeItem(CACHE_PREFIX + key);
+      }
+    }
+  } catch {
+    // localStorage full or unavailable — fall back to memory
+  }
+
+  const entry = memoryFallback.get(key);
   if (entry && Date.now() - entry.timestamp < CACHE_TTL) {
     return entry.data as T;
   }
@@ -33,7 +36,47 @@ function getCached<T>(key: string): T | null {
 }
 
 function setCache(key: string, data: unknown) {
-  sessionCache.set(key, { data, timestamp: Date.now() });
+  const entry = { data, timestamp: Date.now() };
+  memoryFallback.set(key, entry);
+
+  try {
+    if (typeof window !== "undefined" && window.localStorage) {
+      localStorage.setItem(CACHE_PREFIX + key, JSON.stringify(entry));
+    }
+  } catch {
+    // localStorage full — memory cache still works
+  }
+}
+
+/**
+ * Fetch with retry, exponential backoff, AND per-URL caching.
+ */
+async function cachedFetch<T>(url: string, retries = 4): Promise<T> {
+  const cached = getCached<T>(url);
+  if (cached) return cached;
+
+  for (let attempt = 0; attempt < retries; attempt++) {
+    // Wait before each attempt (except first) to avoid hammering
+    if (attempt > 0) {
+      await sleep(1000 * Math.pow(2, attempt));
+    }
+
+    try {
+      const res = await fetch(url);
+      if (res.ok) {
+        const data = await res.json();
+        setCache(url, data);
+        return data;
+      }
+      if (res.status === 429) {
+        continue; // retry with backoff
+      }
+      throw new Error(`OpenF1 API error: ${res.status}`);
+    } catch (err) {
+      if (attempt === retries - 1) throw err;
+    }
+  }
+  throw new Error("OpenF1 API: too many retries (rate limited)");
 }
 
 /**
@@ -43,15 +86,18 @@ export async function fetchSessionsForMeeting(
   year: number,
   countryName: string
 ): Promise<OpenF1Session[]> {
-  const cacheKey = `sessions-${year}-${countryName}`;
-  const cached = getCached<OpenF1Session[]>(cacheKey);
-  if (cached) return cached;
-
-  const data = await fetchWithRetry<OpenF1Session[]>(
+  return cachedFetch<OpenF1Session[]>(
     `${API_BASE}/sessions?year=${year}&country_name=${encodeURIComponent(countryName)}`
   );
-  setCache(cacheKey, data);
-  return data;
+}
+
+/**
+ * Fetch drivers for a session (cached — same drivers appear in all sessions of a meeting).
+ */
+async function fetchDriversForSession(sessionKey: number): Promise<OpenF1Driver[]> {
+  return cachedFetch<OpenF1Driver[]>(
+    `${API_BASE}/drivers?session_key=${sessionKey}`
+  );
 }
 
 /**
@@ -99,27 +145,30 @@ export function isSessionCompleted(session: OpenF1Session): boolean {
 }
 
 /**
- * Fetch results for a specific session — combines position data with driver info.
+ * Fetch results for a specific session.
+ * Uses cached API calls — if you already fetched drivers for another session
+ * in the same meeting, it won't refetch.
  */
 export async function fetchSessionResults(
   sessionKey: number
 ): Promise<SessionResult[]> {
-  const cacheKey = `results-${sessionKey}`;
+  const cacheKey = `composed-results-${sessionKey}`;
   const cached = getCached<SessionResult[]>(cacheKey);
   if (cached) return cached;
 
-  // Fetch positions and drivers in parallel
-  const [positions, drivers] = await Promise.all([
-    fetchWithRetry<Array<{
-      date: string;
-      session_key: number;
-      position: number;
-      driver_number: number;
-    }>>(`${API_BASE}/position?session_key=${sessionKey}`),
-    fetchWithRetry<OpenF1Driver[]>(
-      `${API_BASE}/drivers?session_key=${sessionKey}`
-    ),
-  ]);
+  // Fetch positions first (required), then drivers with a small delay
+  const positions = await cachedFetch<Array<{
+    date: string;
+    session_key: number;
+    position: number;
+    driver_number: number;
+  }>>(`${API_BASE}/position?session_key=${sessionKey}`);
+
+  await sleep(200); // breathe between calls
+
+  const drivers = await fetchDriversForSession(sessionKey);
+
+  await sleep(200);
 
   // Build driver lookup
   const driverMap = new Map<number, OpenF1Driver>();
@@ -143,7 +192,7 @@ export async function fetchSessionResults(
     lap_number: number;
   }> = [];
   try {
-    lapData = await fetchWithRetry(
+    lapData = await cachedFetch(
       `${API_BASE}/laps?session_key=${sessionKey}`
     );
   } catch {

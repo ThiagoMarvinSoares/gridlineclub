@@ -7,8 +7,13 @@ import { getPostEntryBySlug, getAllSlugs } from "@/lib/posts";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isValidLocale, locales, Locale } from "@/i18n/config";
 import Link from "next/link";
+import Image from "next/image";
 
 const postComponents: Record<string, Record<string, React.ComponentType>> = {
+  "2026-japanese-gp-recap": {
+    en: dynamic(() => import("@/content/posts/f1/race-recaps/2026-japanese-gp-recap.en")),
+    "pt-br": dynamic(() => import("@/content/posts/f1/race-recaps/2026-japanese-gp-recap.pt-br")),
+  },
   "understanding-2026-f1-regulations": {
     en: dynamic(() => import("@/content/posts/f1/regulations/understanding-2026-f1-regulations.en")),
     "pt-br": dynamic(() => import("@/content/posts/f1/regulations/understanding-2026-f1-regulations.pt-br")),
@@ -77,7 +82,19 @@ export default async function PostPage({ params }: { params: Promise<{ locale: s
         <Link href={`/${locale}/posts`} className="inline-flex items-center gap-1 text-sm text-text-secondary transition-colors hover:text-racing-red">
           &larr; {dict.posts.backToArticles}
         </Link>
-        <header className="mt-6 border-b border-border pb-8">
+        {post.coverImage && (
+          <div className="mt-6 overflow-hidden rounded-xl">
+            <Image
+              src={post.coverImage}
+              alt={meta.title}
+              width={1200}
+              height={630}
+              className="h-auto w-full object-cover"
+              priority
+            />
+          </div>
+        )}
+        <header className={`${post.coverImage ? "mt-6" : "mt-6"} border-b border-border pb-8`}>
           <div className="flex items-center gap-3">
             <CategoryBadge category={post.category} locale={locale} dict={dict.categories} />
             <span className="text-sm text-text-muted">{post.readingTime} {dict.posts.minRead}</span>

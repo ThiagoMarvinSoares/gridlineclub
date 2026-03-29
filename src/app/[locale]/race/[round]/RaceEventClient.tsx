@@ -57,23 +57,22 @@ export default function RaceEventClient({ race, dict }: { race: Race; dict: any 
           }
         }
 
-        // Fetch results for all completed sessions in parallel (batched)
-        const BATCH_SIZE = 2;
-        for (let i = 0; i < completedSessions.length; i += BATCH_SIZE) {
-          const batch = completedSessions.slice(i, i + BATCH_SIZE);
-          const results = await Promise.all(
-            batch.map(({ session }) => fetchSessionResults(session.session_key))
-          );
-          for (let j = 0; j < batch.length; j++) {
-            const data = results[j];
-            dataMap[batch[j].tab] = {
+        // Fetch results one session at a time to avoid 429 rate limits
+        // Each fetchSessionResults already makes 3 API calls internally
+        for (let i = 0; i < completedSessions.length; i++) {
+          const { tab, session } = completedSessions[i];
+          try {
+            const data = await fetchSessionResults(session.session_key);
+            dataMap[tab] = {
               status: data.length > 0 ? "completed" : "nodata",
               results: data,
             };
+          } catch {
+            dataMap[tab] = { status: "nodata", results: [] };
           }
-          // Small delay between batches to avoid rate limiting
-          if (i + BATCH_SIZE < completedSessions.length) {
-            await new Promise((r) => setTimeout(r, 300));
+          // Delay between sessions to respect API rate limits
+          if (i < completedSessions.length - 1) {
+            await new Promise((r) => setTimeout(r, 500));
           }
         }
 
