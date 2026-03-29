@@ -33,7 +33,7 @@ export const posts: PostEntry[] = [
     author: "GridLine Club Team",
     readingTime: 12,
     tags: ["race-recap", "japanese-gp", "2026-season", "antonelli", "suzuka", "safety-car"],
-    coverImage: "/images/japanese-gp-2026-cover.jpg",
+    coverImage: "/images/japanese-gp-2026-cover.png",
   },
   {
     slug: "understanding-2026-f1-regulations",
