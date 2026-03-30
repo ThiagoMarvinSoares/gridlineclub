@@ -1,32 +1,28 @@
-import { posts, PostEntry } from "@/content/registry";
-import { Locale, defaultLocale } from "@/i18n/config";
 import { Category, PostMeta, Series } from "@/lib/types";
+import { Locale, defaultLocale } from "@/i18n/config";
+import { getAllMdxPosts, getMdxPostSlugs, getMdxPostsByCategory, getMdxPostBySlug, MdxPostMeta } from "@/lib/mdx";
 
-function resolvePost(entry: PostEntry, locale: Locale = defaultLocale): PostMeta {
-  const localeMeta = entry.meta[locale] ?? entry.meta[defaultLocale];
+function mdxToPostMeta(m: MdxPostMeta): PostMeta {
   return {
-    slug: entry.slug,
-    title: localeMeta.title,
-    excerpt: localeMeta.excerpt,
-    series: entry.series,
-    category: entry.category,
-    publishedAt: entry.publishedAt,
-    author: entry.author,
-    readingTime: entry.readingTime,
-    tags: entry.tags,
+    slug: m.slug,
+    title: m.title,
+    excerpt: m.excerpt,
+    series: m.series,
+    category: m.category,
+    publishedAt: m.publishedAt,
+    author: m.author,
+    readingTime: m.readingTime,
+    tags: m.tags,
+    coverImage: m.coverImage,
   };
 }
 
 export function getAllPosts(locale?: Locale): PostMeta[] {
-  return [...posts]
-    .sort(
-      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-    )
-    .map((p) => resolvePost(p, locale));
+  return getAllMdxPosts(locale || defaultLocale).map(mdxToPostMeta);
 }
 
 export function getPostsByCategory(category: Category, locale?: Locale): PostMeta[] {
-  return getAllPosts(locale).filter((p) => p.category === category);
+  return getMdxPostsByCategory(category, locale || defaultLocale).map(mdxToPostMeta);
 }
 
 export function getPostsBySeries(series: Series, locale?: Locale): PostMeta[] {
@@ -34,19 +30,15 @@ export function getPostsBySeries(series: Series, locale?: Locale): PostMeta[] {
 }
 
 export function getPostBySlug(slug: string, locale?: Locale): PostMeta | undefined {
-  const entry = posts.find((p) => p.slug === slug);
-  if (!entry) return undefined;
-  return resolvePost(entry, locale);
+  const post = getMdxPostBySlug(slug, locale || defaultLocale);
+  if (!post) return undefined;
+  return mdxToPostMeta(post.meta);
 }
 
 export function getLatestPosts(count: number, locale?: Locale): PostMeta[] {
   return getAllPosts(locale).slice(0, count);
 }
 
-export function getPostEntryBySlug(slug: string): PostEntry | undefined {
-  return posts.find((p) => p.slug === slug);
-}
-
 export function getAllSlugs(): string[] {
-  return posts.map((p) => p.slug);
+  return getMdxPostSlugs();
 }

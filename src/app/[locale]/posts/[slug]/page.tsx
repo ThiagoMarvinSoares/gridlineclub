@@ -1,91 +1,76 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import dynamic from "next/dynamic";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import Container from "@/components/ui/Container";
 import CategoryBadge from "@/components/posts/CategoryBadge";
-import { getPostEntryBySlug, getAllSlugs } from "@/lib/posts";
+import { getAllSlugs, getPostBySlug } from "@/lib/posts";
+import { getMdxPostBySlug } from "@/lib/mdx";
 import { getDictionary } from "@/i18n/dictionaries";
-import { isValidLocale, locales, Locale } from "@/i18n/config";
+import { isValidLocale, locales, type Locale } from "@/i18n/config";
 import Link from "next/link";
 import Image from "next/image";
-
-const postComponents: Record<string, Record<string, React.ComponentType>> = {
-  "2026-japanese-gp-recap": {
-    en: dynamic(() => import("@/content/posts/f1/race-recaps/2026-japanese-gp-recap.en")),
-    "pt-br": dynamic(() => import("@/content/posts/f1/race-recaps/2026-japanese-gp-recap.pt-br")),
-  },
-  "understanding-2026-f1-regulations": {
-    en: dynamic(() => import("@/content/posts/f1/regulations/understanding-2026-f1-regulations.en")),
-    "pt-br": dynamic(() => import("@/content/posts/f1/regulations/understanding-2026-f1-regulations.pt-br")),
-  },
-  "how-f1-tire-strategy-works": {
-    en: dynamic(() => import("@/content/posts/f1/how-it-works/how-f1-tire-strategy-works.en")),
-    "pt-br": dynamic(() => import("@/content/posts/f1/how-it-works/how-f1-tire-strategy-works.pt-br")),
-  },
-  "active-aerodynamics-2026-explained": {
-    en: dynamic(() => import("@/content/posts/f1/technical/active-aerodynamics-2026-explained.en")),
-    "pt-br": dynamic(() => import("@/content/posts/f1/technical/active-aerodynamics-2026-explained.pt-br")),
-  },
-  "2026-australian-gp-recap": {
-    en: dynamic(() => import("@/content/posts/f1/race-recaps/2026-australian-gp-recap.en")),
-    "pt-br": dynamic(() => import("@/content/posts/f1/race-recaps/2026-australian-gp-recap.pt-br")),
-  },
-  "2026-chinese-gp-recap": {
-    en: dynamic(() => import("@/content/posts/f1/race-recaps/2026-chinese-gp-recap.en")),
-    "pt-br": dynamic(() => import("@/content/posts/f1/race-recaps/2026-chinese-gp-recap.pt-br")),
-  },
-  "2026-japanese-gp-preview": {
-    en: dynamic(() => import("@/content/posts/f1/race-preview/2026-japanese-gp-preview.en")),
-    "pt-br": dynamic(() => import("@/content/posts/f1/race-preview/2026-japanese-gp-preview.pt-br")),
-  },
-};
 
 export function generateStaticParams() {
   const slugs = getAllSlugs();
   return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!isValidLocale(locale)) return {};
   const dict = await getDictionary(locale);
-  const post = getPostEntryBySlug(slug);
+  const post = getPostBySlug(slug, locale as Locale);
   if (!post) return { title: dict.posts.notFound };
-  const meta = post.meta[locale as Locale] || post.meta.en;
   return {
-    title: meta.title,
-    description: meta.excerpt,
-    openGraph: { title: meta.title, description: meta.excerpt, type: "article", publishedTime: post.publishedAt },
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+      publishedTime: post.publishedAt,
+    },
   };
 }
 
-export default async function PostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
   const { locale, slug } = await params;
   if (!isValidLocale(locale)) notFound();
   const dict = await getDictionary(locale);
-  const post = getPostEntryBySlug(slug);
-  if (!post) notFound();
 
-  const components = postComponents[slug];
-  if (!components) notFound();
-  const PostContent = components[locale] || components.en;
-  if (!PostContent) notFound();
+  // Load MDX post
+  const mdxPost = getMdxPostBySlug(slug, locale);
+  if (!mdxPost) notFound();
 
-  const meta = post.meta[locale as Locale] || post.meta.en;
-  const date = new Date(post.publishedAt).toLocaleDateString(locale === "pt-br" ? "pt-BR" : "en-US", {
-    weekday: "long", month: "long", day: "numeric", year: "numeric",
-  });
+  const { meta, content } = mdxPost;
+
+  const date = new Date(meta.publishedAt).toLocaleDateString(
+    locale === "pt-br" ? "pt-BR" : "en-US",
+    { weekday: "long", month: "long", day: "numeric", year: "numeric" }
+  );
 
   return (
     <div className="py-12">
       <Container className="max-w-3xl">
-        <Link href={`/${locale}/posts`} className="inline-flex items-center gap-1 text-sm text-text-secondary transition-colors hover:text-racing-red">
+        <Link
+          href={`/${locale}/posts`}
+          className="inline-flex items-center gap-1 text-sm text-text-secondary transition-colors hover:text-racing-red"
+        >
           &larr; {dict.posts.backToArticles}
         </Link>
-        {post.coverImage && (
+
+        {meta.coverImage && (
           <div className="mt-6 overflow-hidden rounded-xl">
             <Image
-              src={post.coverImage}
+              src={meta.coverImage}
               alt={meta.title}
               width={1200}
               height={630}
@@ -94,21 +79,37 @@ export default async function PostPage({ params }: { params: Promise<{ locale: s
             />
           </div>
         )}
-        <header className={`${post.coverImage ? "mt-6" : "mt-6"} border-b border-border pb-8`}>
+
+        <header className="mt-6 border-b border-border pb-8">
           <div className="flex items-center gap-3">
-            <CategoryBadge category={post.category} locale={locale} dict={dict.categories} />
-            <span className="text-sm text-text-muted">{post.readingTime} {dict.posts.minRead}</span>
+            <CategoryBadge
+              category={meta.category}
+              locale={locale}
+              dict={dict.categories}
+            />
+            <span className="text-sm text-text-muted">
+              {meta.readingTime} {dict.posts.minRead}
+            </span>
           </div>
-          <h1 className="mt-4 font-heading text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">{meta.title}</h1>
+          <h1 className="mt-4 font-heading text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+            {meta.title}
+          </h1>
           <div className="mt-4 flex items-center gap-4 text-sm text-text-muted">
-            <span>{post.author}</span>
+            <span>{meta.author}</span>
             <span>&middot;</span>
-            <time dateTime={post.publishedAt}>{date}</time>
+            <time dateTime={meta.publishedAt}>{date}</time>
           </div>
         </header>
-        <div className="prose-racing mt-8 text-lg"><PostContent /></div>
+
+        <div className="prose-racing mt-8 text-lg">
+          <MDXRemote source={content} />
+        </div>
+
         <div className="mt-12 border-t border-border pt-8">
-          <Link href={`/${locale}/posts`} className="inline-flex items-center gap-1 text-sm font-medium text-racing-red transition-colors hover:text-racing-orange">
+          <Link
+            href={`/${locale}/posts`}
+            className="inline-flex items-center gap-1 text-sm font-medium text-racing-red transition-colors hover:text-racing-orange"
+          >
             &larr; {dict.posts.backToAll}
           </Link>
         </div>
