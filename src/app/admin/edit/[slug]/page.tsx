@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 const CATEGORIES = [
   { value: "race-recaps", label: "Race Recaps" },
@@ -168,8 +169,8 @@ export default function EditPostPage() {
             <input type="text" value={tags} onChange={(e) => setTags(e.target.value)} className={inputClass} />
           </div>
           <div>
-            <label className={labelClass}>Cover Image URL</label>
-            <input type="text" value={coverImage} onChange={(e) => setCoverImage(e.target.value)} className={inputClass} />
+            <label className={labelClass}>Cover Image</label>
+            <ImageUpload value={coverImage} onChange={setCoverImage} />
           </div>
         </div>
       </div>

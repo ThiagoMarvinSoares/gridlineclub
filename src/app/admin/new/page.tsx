@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 const CATEGORIES = [
   { value: "race-recaps", label: "Race Recaps" },
@@ -173,14 +174,8 @@ export default function NewPostPage() {
             />
           </div>
           <div>
-            <label className={labelClass}>Cover Image URL</label>
-            <input
-              type="text"
-              value={coverImage}
-              onChange={(e) => setCoverImage(e.target.value)}
-              placeholder="/images/cover.png"
-              className={inputClass}
-            />
+            <label className={labelClass}>Cover Image</label>
+            <ImageUpload value={coverImage} onChange={setCoverImage} />
           </div>
           <div className="sm:col-span-2 lg:col-span-3">
             <label className={labelClass}>Slug (auto-generated from title if empty)</label>
