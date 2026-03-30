@@ -20,58 +20,46 @@ export interface MdxPostMeta {
 
 export interface MdxPost {
   meta: MdxPostMeta;
-  content: string; // raw MDX/markdown content
+  content: string;
 }
 
 /**
- * Recursively find all .mdx files in a directory.
+ * Find all post directories — each post is a folder containing en.mdx and pt-br.mdx.
+ * Structure: src/content/posts/f1/{category}/{slug}/en.mdx
  */
-function findMdxFiles(dir: string): string[] {
-  const results: string[] = [];
+function findPostDirs(dir: string): { slug: string; dirPath: string }[] {
+  const results: { slug: string; dirPath: string }[] = [];
   if (!fs.existsSync(dir)) return results;
 
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      results.push(...findMdxFiles(fullPath));
-    } else if (entry.name.endsWith(".mdx")) {
-      results.push(fullPath);
+      // Check if this directory contains en.mdx (it's a post folder)
+      const enFile = path.join(fullPath, "en.mdx");
+      if (fs.existsSync(enFile)) {
+        results.push({ slug: entry.name, dirPath: fullPath });
+      } else {
+        // Recurse into subdirectories (category folders)
+        results.push(...findPostDirs(fullPath));
+      }
     }
   }
   return results;
 }
 
 /**
- * Extract slug and locale from filename.
- * e.g., "2026-japanese-gp-recap.en.mdx" → { slug: "2026-japanese-gp-recap", locale: "en" }
+ * Read and parse a single MDX file.
  */
-function parseFilename(filename: string): { slug: string; locale: string } | null {
-  const name = path.basename(filename, ".mdx");
-  const lastDot = name.lastIndexOf(".");
-  if (lastDot === -1) return null;
+function parseMdxFile(filePath: string, slug: string): MdxPost | null {
+  if (!fs.existsSync(filePath)) return null;
 
-  const slug = name.substring(0, lastDot);
-  const locale = name.substring(lastDot + 1);
-  return { slug, locale };
-}
+  const raw = fs.readFileSync(filePath, "utf-8");
+  const { data, content } = matter(raw);
 
-/**
- * Get all MDX posts for a specific locale, sorted by date (newest first).
- */
-export function getAllMdxPosts(locale: string): MdxPostMeta[] {
-  const files = findMdxFiles(POSTS_DIR);
-  const posts: MdxPostMeta[] = [];
-
-  for (const file of files) {
-    const parsed = parseFilename(file);
-    if (!parsed || parsed.locale !== locale) continue;
-
-    const raw = fs.readFileSync(file, "utf-8");
-    const { data } = matter(raw);
-
-    posts.push({
-      slug: parsed.slug,
+  return {
+    meta: {
+      slug,
       title: data.title || "",
       excerpt: data.excerpt || "",
       series: data.series || "f1",
@@ -81,7 +69,24 @@ export function getAllMdxPosts(locale: string): MdxPostMeta[] {
       readingTime: data.readingTime || 5,
       tags: data.tags || [],
       coverImage: data.coverImage,
-    });
+    },
+    content,
+  };
+}
+
+/**
+ * Get all MDX posts for a specific locale, sorted by date (newest first).
+ */
+export function getAllMdxPosts(locale: string): MdxPostMeta[] {
+  const postDirs = findPostDirs(POSTS_DIR);
+  const posts: MdxPostMeta[] = [];
+
+  for (const { slug, dirPath } of postDirs) {
+    const filePath = path.join(dirPath, `${locale}.mdx`);
+    const post = parseMdxFile(filePath, slug);
+    if (post) {
+      posts.push(post.meta);
+    }
   }
 
   return posts.sort(
@@ -93,48 +98,19 @@ export function getAllMdxPosts(locale: string): MdxPostMeta[] {
  * Get a single MDX post by slug and locale — returns metadata + raw content.
  */
 export function getMdxPostBySlug(slug: string, locale: string): MdxPost | null {
-  const files = findMdxFiles(POSTS_DIR);
+  const postDirs = findPostDirs(POSTS_DIR);
+  const dir = postDirs.find((d) => d.slug === slug);
+  if (!dir) return null;
 
-  for (const file of files) {
-    const parsed = parseFilename(file);
-    if (!parsed || parsed.slug !== slug || parsed.locale !== locale) continue;
-
-    const raw = fs.readFileSync(file, "utf-8");
-    const { data, content } = matter(raw);
-
-    return {
-      meta: {
-        slug: parsed.slug,
-        title: data.title || "",
-        excerpt: data.excerpt || "",
-        series: data.series || "f1",
-        category: data.category || "race-recaps",
-        publishedAt: data.publishedAt || "",
-        author: data.author || "",
-        readingTime: data.readingTime || 5,
-        tags: data.tags || [],
-        coverImage: data.coverImage,
-      },
-      content,
-    };
-  }
-
-  return null;
+  const filePath = path.join(dir.dirPath, `${locale}.mdx`);
+  return parseMdxFile(filePath, slug);
 }
 
 /**
  * Get all unique slugs (for generateStaticParams).
  */
 export function getMdxPostSlugs(): string[] {
-  const files = findMdxFiles(POSTS_DIR);
-  const slugs = new Set<string>();
-
-  for (const file of files) {
-    const parsed = parseFilename(file);
-    if (parsed) slugs.add(parsed.slug);
-  }
-
-  return Array.from(slugs);
+  return findPostDirs(POSTS_DIR).map((d) => d.slug);
 }
 
 /**
@@ -149,4 +125,13 @@ export function getMdxPostsByCategory(category: Category, locale: string): MdxPo
  */
 export function getLatestMdxPosts(count: number, locale: string): MdxPostMeta[] {
   return getAllMdxPosts(locale).slice(0, count);
+}
+
+/**
+ * Get the directory path for a post slug (for serving images).
+ */
+export function getPostDirPath(slug: string): string | null {
+  const postDirs = findPostDirs(POSTS_DIR);
+  const dir = postDirs.find((d) => d.slug === slug);
+  return dir ? dir.dirPath : null;
 }

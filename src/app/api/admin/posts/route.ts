@@ -66,8 +66,8 @@ export async function POST(request: Request) {
 
   // Determine file paths
   const categoryDir = category;
-  const enPath = `src/content/posts/f1/${categoryDir}/${slug}.en.mdx`;
-  const ptBrPath = `src/content/posts/f1/${categoryDir}/${slug}.pt-br.mdx`;
+  const enPath = `src/content/posts/f1/${categoryDir}/${slug}/en.mdx`;
+  const ptBrPath = `src/content/posts/f1/${categoryDir}/${slug}/pt-br.mdx`;
 
   // Commit to GitHub
   const githubToken = process.env.GITHUB_TOKEN;
@@ -144,8 +144,8 @@ export async function PUT(request: Request) {
   });
 
   const categoryDir = category;
-  const enPath = `src/content/posts/f1/${categoryDir}/${slug}.en.mdx`;
-  const ptBrPath = `src/content/posts/f1/${categoryDir}/${slug}.pt-br.mdx`;
+  const enPath = `src/content/posts/f1/${categoryDir}/${slug}/en.mdx`;
+  const ptBrPath = `src/content/posts/f1/${categoryDir}/${slug}/pt-br.mdx`;
 
   const githubToken = process.env.GITHUB_TOKEN;
   const githubRepo = process.env.GITHUB_REPO;

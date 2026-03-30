@@ -175,7 +175,7 @@ export default function NewPostPage() {
           </div>
           <div>
             <label className={labelClass}>Cover Image</label>
-            <ImageUpload value={coverImage} onChange={setCoverImage} />
+            <ImageUpload value={coverImage} onChange={setCoverImage} slug={slug || generateSlug(titleEn)} category={category} />
           </div>
           <div className="sm:col-span-2 lg:col-span-3">
             <label className={labelClass}>Slug (auto-generated from title if empty)</label>

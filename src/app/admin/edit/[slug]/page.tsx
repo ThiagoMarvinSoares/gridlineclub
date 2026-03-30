@@ -170,7 +170,7 @@ export default function EditPostPage() {
           </div>
           <div>
             <label className={labelClass}>Cover Image</label>
-            <ImageUpload value={coverImage} onChange={setCoverImage} />
+            <ImageUpload value={coverImage} onChange={setCoverImage} slug={slug} category={category} />
           </div>
         </div>
       </div>

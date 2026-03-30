@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   const formData = await request.formData();
   const file = formData.get("file") as File | null;
+  const slug = formData.get("slug") as string | null;
+  const category = formData.get("category") as string | null;
 
   if (!file) {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });
@@ -18,10 +20,21 @@ export async function POST(request: Request) {
     );
   }
 
-  // Sanitize filename: lowercase, replace spaces with dashes
+  // Sanitize filename
   const originalName = file.name.replace(/\s+/g, "-").toLowerCase();
-  const filePath = `public/images/${originalName}`;
-  const publicUrl = `/images/${originalName}`;
+
+  // If slug and category provided, save inside the post folder
+  // Otherwise save in public/images/ as fallback
+  let filePath: string;
+  let publicUrl: string;
+
+  if (slug && category) {
+    filePath = `src/content/posts/f1/${category}/${slug}/${originalName}`;
+    publicUrl = `/api/content-image/f1/${category}/${slug}/${originalName}`;
+  } else {
+    filePath = `public/images/${originalName}`;
+    publicUrl = `/images/${originalName}`;
+  }
 
   // Read file as base64
   const bytes = await file.arrayBuffer();
@@ -35,7 +48,7 @@ export async function POST(request: Request) {
   };
 
   try {
-    // Check if file already exists (get its SHA for update)
+    // Check if file already exists
     let existingSha: string | undefined;
     const checkRes = await fetch(`${apiBase}/contents/${filePath}`, { headers });
     if (checkRes.ok) {
@@ -43,7 +56,6 @@ export async function POST(request: Request) {
       existingSha = checkData.sha;
     }
 
-    // Create or update file via GitHub Contents API (simpler for single files)
     const body: Record<string, string> = {
       message: `feat: upload image ${originalName}`,
       content: base64,

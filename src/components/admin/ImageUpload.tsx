@@ -5,9 +5,13 @@ import { useState, useRef } from "react";
 export default function ImageUpload({
   value,
   onChange,
+  slug,
+  category,
 }: {
   value: string;
   onChange: (url: string) => void;
+  slug?: string;
+  category?: string;
 }) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -17,13 +21,11 @@ export default function ImageUpload({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validate file type
     if (!file.type.startsWith("image/")) {
       setError("Please select an image file");
       return;
     }
 
-    // Validate size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       setError("Image must be under 5MB");
       return;
@@ -35,6 +37,8 @@ export default function ImageUpload({
     try {
       const formData = new FormData();
       formData.append("file", file);
+      if (slug) formData.append("slug", slug);
+      if (category) formData.append("category", category);
 
       const res = await fetch("/api/admin/upload", {
         method: "POST",
@@ -62,7 +66,7 @@ export default function ImageUpload({
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="/images/cover.png"
+          placeholder="/api/content-image/f1/category/slug/cover.png"
           className="flex-1 rounded-lg border border-[#2a2a2a] bg-[#1e1e1e] px-4 py-2.5 text-sm text-[#f5f5f5] placeholder-[#666] outline-none focus:border-[#e10600] transition-colors"
         />
         <button
