@@ -93,6 +93,83 @@ export async function POST(request: Request) {
   }
 }
 
+export async function PUT(request: Request) {
+  const body = await request.json();
+
+  const {
+    slug,
+    titleEn,
+    titlePtBr,
+    excerptEn,
+    excerptPtBr,
+    series,
+    category,
+    publishedAt,
+    author,
+    readingTime,
+    tags,
+    coverImage,
+    contentEn,
+    contentPtBr,
+  } = body;
+
+  if (!slug || !titleEn || !titlePtBr || !contentEn || !contentPtBr || !category) {
+    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+  }
+
+  const enMdx = buildMdx({
+    title: titleEn,
+    excerpt: excerptEn,
+    series: series || "f1",
+    category,
+    publishedAt: publishedAt || new Date().toISOString().split("T")[0],
+    author: author || "GridLine Club Team",
+    readingTime: readingTime || 5,
+    tags: tags || [],
+    coverImage,
+    content: contentEn,
+  });
+
+  const ptBrMdx = buildMdx({
+    title: titlePtBr,
+    excerpt: excerptPtBr,
+    series: series || "f1",
+    category,
+    publishedAt: publishedAt || new Date().toISOString().split("T")[0],
+    author: author || "GridLine Club Team",
+    readingTime: readingTime || 5,
+    tags: tags || [],
+    coverImage,
+    content: contentPtBr,
+  });
+
+  const categoryDir = category;
+  const enPath = `src/content/posts/f1/${categoryDir}/${slug}.en.mdx`;
+  const ptBrPath = `src/content/posts/f1/${categoryDir}/${slug}.pt-br.mdx`;
+
+  const githubToken = process.env.GITHUB_TOKEN;
+  const githubRepo = process.env.GITHUB_REPO;
+
+  if (!githubToken || !githubRepo) {
+    return NextResponse.json(
+      { error: "GitHub not configured. Set GITHUB_TOKEN and GITHUB_REPO env variables." },
+      { status: 500 }
+    );
+  }
+
+  try {
+    await commitToGitHub(githubToken, githubRepo, [
+      { path: enPath, content: enMdx },
+      { path: ptBrPath, content: ptBrMdx },
+    ], `fix: update article "${titleEn}"`);
+
+    return NextResponse.json({ ok: true, slug });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "GitHub commit failed";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
+
 function buildMdx(opts: {
   title: string;
   excerpt: string;

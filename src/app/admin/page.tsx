@@ -61,13 +61,21 @@ export default function AdminDashboard() {
                     <span>{post.publishedAt}</span>
                   </div>
                 </div>
-                <a
-                  href={`/en/posts/${post.slug}`}
-                  target="_blank"
-                  className="text-xs text-[#a0a0a0] hover:text-[#e10600]"
-                >
-                  View →
-                </a>
+                <div className="flex items-center gap-3">
+                  <Link
+                    href={`/admin/edit/${post.slug}`}
+                    className="rounded bg-[#1e1e1e] px-3 py-1.5 text-xs font-bold text-[#ff6b00] hover:bg-[#2a2a2a]"
+                  >
+                    Edit
+                  </Link>
+                  <a
+                    href={`/en/posts/${post.slug}`}
+                    target="_blank"
+                    className="text-xs text-[#a0a0a0] hover:text-[#e10600]"
+                  >
+                    View →
+                  </a>
+                </div>
               </div>
             ))}
           </div>
