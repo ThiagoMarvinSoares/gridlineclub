@@ -104,6 +104,7 @@ export async function PUT(request: Request) {
     excerptPtBr,
     series,
     category,
+    oldCategory,
     publishedAt,
     author,
     readingTime,
@@ -158,10 +159,27 @@ export async function PUT(request: Request) {
   }
 
   try {
-    await commitToGitHub(githubToken, githubRepo, [
+    const filesToCreate = [
       { path: enPath, content: enMdx },
       { path: ptBrPath, content: ptBrMdx },
-    ], `fix: update article "${titleEn}"`);
+    ];
+
+    // If category changed, delete old files first
+    const filesToDelete: string[] = [];
+    if (oldCategory && oldCategory !== category) {
+      filesToDelete.push(
+        `src/content/posts/f1/${oldCategory}/${slug}/en.mdx`,
+        `src/content/posts/f1/${oldCategory}/${slug}/pt-br.mdx`
+      );
+    }
+
+    await commitToGitHubWithDeletes(
+      githubToken,
+      githubRepo,
+      filesToCreate,
+      filesToDelete,
+      `fix: update article "${titleEn}"${oldCategory && oldCategory !== category ? ` (moved from ${oldCategory} to ${category})` : ""}`
+    );
 
     return NextResponse.json({ ok: true, slug });
   } catch (err) {
@@ -270,6 +288,83 @@ async function commitToGitHub(
   const newCommitData = await newCommitRes.json();
 
   // 6. Update the branch reference
+  const updateRefRes = await fetch(`${apiBase}/git/refs/heads/main`, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify({ sha: newCommitData.sha }),
+  });
+  if (!updateRefRes.ok) throw new Error("Failed to update branch ref");
+}
+
+/**
+ * Commit with both file creations and deletions in a single commit.
+ * Used when category changes — deletes old files and creates new ones atomically.
+ */
+async function commitToGitHubWithDeletes(
+  token: string,
+  repo: string,
+  filesToCreate: { path: string; content: string }[],
+  filesToDelete: string[],
+  message: string
+) {
+  if (filesToDelete.length === 0) {
+    // No deletes needed — use the simpler function
+    return commitToGitHub(token, repo, filesToCreate, message);
+  }
+
+  const apiBase = `https://api.github.com/repos/${repo}`;
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+    Accept: "application/vnd.github.v3+json",
+  };
+
+  const refRes = await fetch(`${apiBase}/git/ref/heads/main`, { headers });
+  if (!refRes.ok) throw new Error("Failed to get branch ref");
+  const refData = await refRes.json();
+  const latestCommitSha = refData.object.sha;
+
+  const commitRes = await fetch(`${apiBase}/git/commits/${latestCommitSha}`, { headers });
+  if (!commitRes.ok) throw new Error("Failed to get latest commit");
+  const commitData = await commitRes.json();
+  const baseTreeSha = commitData.tree.sha;
+
+  // Build tree items: new files + deleted files (sha: null deletes)
+  const treeItems: Array<{ path: string; mode: string; type: string; sha: string | null }> = [];
+
+  // Create blobs for new files
+  for (const file of filesToCreate) {
+    const blobRes = await fetch(`${apiBase}/git/blobs`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ content: file.content, encoding: "utf-8" }),
+    });
+    if (!blobRes.ok) throw new Error(`Failed to create blob for ${file.path}`);
+    const blobData = await blobRes.json();
+    treeItems.push({ path: file.path, mode: "100644", type: "blob", sha: blobData.sha });
+  }
+
+  // Delete old files (setting sha to null removes them from the tree)
+  for (const path of filesToDelete) {
+    treeItems.push({ path, mode: "100644", type: "blob", sha: null });
+  }
+
+  const treeRes = await fetch(`${apiBase}/git/trees`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ base_tree: baseTreeSha, tree: treeItems }),
+  });
+  if (!treeRes.ok) throw new Error("Failed to create tree");
+  const treeData = await treeRes.json();
+
+  const newCommitRes = await fetch(`${apiBase}/git/commits`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ message, tree: treeData.sha, parents: [latestCommitSha] }),
+  });
+  if (!newCommitRes.ok) throw new Error("Failed to create commit");
+  const newCommitData = await newCommitRes.json();
+
   const updateRefRes = await fetch(`${apiBase}/git/refs/heads/main`, {
     method: "PATCH",
     headers,

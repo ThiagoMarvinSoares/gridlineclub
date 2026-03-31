@@ -19,6 +19,7 @@ export default function EditPostPage() {
   const slug = params.slug as string;
 
   const [category, setCategory] = useState("race-recaps");
+  const [originalCategory, setOriginalCategory] = useState("race-recaps");
   const [author, setAuthor] = useState("GridLine Club Team");
   const [readingTime, setReadingTime] = useState(5);
   const [tags, setTags] = useState("");
@@ -46,6 +47,7 @@ export default function EditPostPage() {
           setResult({ ok: false, message: data.error });
         } else {
           setCategory(data.category || "race-recaps");
+          setOriginalCategory(data.category || "race-recaps");
           setAuthor(data.author || "GridLine Club Team");
           setReadingTime(data.readingTime || 5);
           setTags((data.tags || []).join(", "));
@@ -87,6 +89,7 @@ export default function EditPostPage() {
           excerptPtBr,
           series: "f1",
           category,
+          oldCategory: originalCategory !== category ? originalCategory : undefined,
           publishedAt,
           author,
           readingTime,
