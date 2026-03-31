@@ -6,12 +6,13 @@ import PostGrid from "@/components/posts/PostGrid";
 import { getAllPosts } from "@/lib/posts";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isValidLocale } from "@/i18n/config";
+import { getAlternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isValidLocale(locale)) return {};
   const dict = await getDictionary(locale);
-  return { title: dict.posts.heading, description: dict.posts.metaDescription };
+  return { title: dict.posts.heading, description: dict.posts.metaDescription, alternates: getAlternates(locale, "/posts") };
 }
 
 export default async function PostsPage({ params }: { params: Promise<{ locale: string }> }) {

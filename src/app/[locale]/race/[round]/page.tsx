@@ -5,6 +5,7 @@ import { f1Calendar2026 } from "@/data/f1-2026-calendar";
 import { getLocalizedRace } from "@/lib/race-utils";
 import { formatRaceDate } from "@/lib/dates";
 import { isValidLocale, type Locale } from "@/i18n/config";
+import { getAlternates } from "@/lib/seo";
 import { getDictionary } from "@/i18n/dictionaries";
 import RaceEventClient from "./RaceEventClient";
 import Link from "next/link";
@@ -29,6 +30,7 @@ export async function generateMetadata({
   return {
     title: `${loc.name} — ${dict.raceEvent.results}`,
     description: `${loc.name} ${dict.raceEvent.sessionResults} — ${loc.circuit}, ${loc.location}`,
+    alternates: getAlternates(locale, `/race/${round}`),
   };
 }
 

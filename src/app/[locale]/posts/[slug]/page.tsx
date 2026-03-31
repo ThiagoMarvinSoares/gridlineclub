@@ -7,6 +7,7 @@ import { getAllSlugs, getPostBySlug } from "@/lib/posts";
 import { getMdxPostBySlug } from "@/lib/mdx";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isValidLocale, locales, type Locale } from "@/i18n/config";
+import { getAlternates } from "@/lib/seo";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -34,6 +35,7 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.publishedAt,
     },
+    alternates: getAlternates(locale, `/posts/${slug}`),
   };
 }
 

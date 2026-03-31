@@ -4,12 +4,13 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isValidLocale } from "@/i18n/config";
+import { getAlternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isValidLocale(locale)) return {};
   const dict = await getDictionary(locale);
-  return { title: dict.about.heading, description: dict.about.metaDescription };
+  return { title: dict.about.heading, description: dict.about.metaDescription, alternates: getAlternates(locale, "/about") };
 }
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {

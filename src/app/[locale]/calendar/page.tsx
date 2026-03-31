@@ -7,6 +7,7 @@ import { f1Calendar2026 } from "@/data/f1-2026-calendar";
 import { getNextRace } from "@/lib/dates";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isValidLocale } from "@/i18n/config";
+import { getAlternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -15,6 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: dict.calendar.heading,
     description: dict.calendar.metaDescription,
+    alternates: getAlternates(locale, "/calendar"),
   };
 }
 

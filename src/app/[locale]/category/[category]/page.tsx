@@ -7,6 +7,7 @@ import { getPostsByCategory } from "@/lib/posts";
 import { Category } from "@/lib/types";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isValidLocale, locales } from "@/i18n/config";
+import { getAlternates } from "@/lib/seo";
 import Link from "next/link";
 
 const categorySlugs = ["regulations", "race-recaps", "technical", "how-it-works"];
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const dict = await getDictionary(locale);
   const cat = dict.categories[category];
   if (!cat) return { title: dict.categoryPage.notFound };
-  return { title: cat.name, description: cat.description };
+  return { title: cat.name, description: cat.description, alternates: getAlternates(locale, `/category/${category}`) };
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ locale: string; category: string }> }) {

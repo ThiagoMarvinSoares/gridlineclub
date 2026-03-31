@@ -5,6 +5,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import StandingsClient from "./StandingsClient";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isValidLocale } from "@/i18n/config";
+import { getAlternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -13,6 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: dict.standings.heading,
     description: dict.standings.metaDescription,
+    alternates: getAlternates(locale, "/standings"),
   };
 }
 
