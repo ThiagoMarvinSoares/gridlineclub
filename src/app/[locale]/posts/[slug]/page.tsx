@@ -74,7 +74,7 @@ export default async function PostPage({
               alt={meta.title}
               width={1200}
               height={630}
-              className="h-auto w-full object-cover"
+              className="h-auto max-h-[400px] w-full object-cover"
               priority
             />
           </div>
