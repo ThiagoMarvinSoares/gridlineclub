@@ -4,7 +4,7 @@ export interface PostEntry {
   slug: string;
   meta: Record<Locale, { title: string; excerpt: string }>;
   series: "f1";
-  category: "regulations" | "race-recaps" | "race-preview" | "technical" | "how-it-works";
+  category: "regulations" | "race-recaps" | "race-preview" | "technical" | "how-it-works" | "news";
   publishedAt: string;
   author: string;
   readingTime: number;

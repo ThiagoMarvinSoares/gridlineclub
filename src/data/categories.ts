@@ -26,6 +26,12 @@ export const categories: CategoryInfo[] = [
     color: "#00bfff",
   },
   {
+    slug: "news",
+    name: "News",
+    description: "Breaking news, driver transfers, team announcements, and F1 updates",
+    color: "#eab308",
+  },
+  {
     slug: "how-it-works",
     name: "How It Works",
     description: "Explainers for newcomers and deep dives into how F1 operates",

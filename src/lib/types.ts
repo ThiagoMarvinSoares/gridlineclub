@@ -1,6 +1,6 @@
 export type Series = "f1" | "motogp" | "wec" | "indycar";
 
-export type Category = "regulations" | "race-recaps" | "race-preview" | "technical" | "how-it-works";
+export type Category = "regulations" | "race-recaps" | "race-preview" | "technical" | "how-it-works" | "news";
 
 export interface PostMeta {
   slug: string;

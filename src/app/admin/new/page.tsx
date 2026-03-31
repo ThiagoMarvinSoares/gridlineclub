@@ -7,6 +7,7 @@ import ImageUpload from "@/components/admin/ImageUpload";
 const CATEGORIES = [
   { value: "race-recaps", label: "Race Recaps" },
   { value: "race-preview", label: "Race Preview" },
+  { value: "news", label: "News" },
   { value: "regulations", label: "Regulations" },
   { value: "technical", label: "Technical" },
   { value: "how-it-works", label: "How It Works" },
