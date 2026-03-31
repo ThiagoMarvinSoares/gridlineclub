@@ -36,64 +36,91 @@ export default function NewPostPage() {
 
   const [publishing, setPublishing] = useState(false);
   const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null);
-  const mdFileRef = useRef<HTMLInputElement>(null);
+  const mdEnRef = useRef<HTMLInputElement>(null);
+  const mdPtBrRef = useRef<HTMLInputElement>(null);
 
-  // Import from .md file — parses title, image, and content
-  function handleMdImport(e: React.ChangeEvent<HTMLInputElement>) {
+  // Parse a markdown file — returns title, image, excerpt, content, reading time
+  function parseMdFile(text: string) {
+    let content = text;
+    let title = "";
+    let image = "";
+    let excerpt = "";
+
+    // Extract title from first # heading
+    const titleMatch = content.match(/^#\s+(.+)$/m);
+    if (titleMatch) {
+      title = titleMatch[1].trim();
+      content = content.replace(/^#\s+.+\n*/m, "");
+    }
+
+    // Extract first image as cover image
+    const imgMatch = content.match(/!\[.*?\]\((.*?)\)/);
+    if (imgMatch) {
+      image = imgMatch[1];
+      content = content.replace(/!\[.*?\]\(.*?\)\n*/m, "");
+    }
+
+    // Extract first paragraph as excerpt
+    const lines = content.split("\n");
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith("#") && !trimmed.startsWith("!") && !trimmed.startsWith("-")) {
+        excerpt = trimmed.substring(0, 200);
+        break;
+      }
+    }
+
+    const wordCount = content.split(/\s+/).filter(Boolean).length;
+    const readTime = Math.max(1, Math.round(wordCount / 200));
+
+    return { title, image, excerpt, content: content.trim(), readTime };
+  }
+
+  // Import English .md file
+  function handleEnImport(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-
     const reader = new FileReader();
     reader.onload = (ev) => {
       const text = ev.target?.result as string;
       if (!text) return;
-
-      let content = text;
-
-      // Extract title from first # heading
-      const titleMatch = content.match(/^#\s+(.+)$/m);
-      if (titleMatch) {
-        setTitleEn(titleMatch[1].trim());
-        // Generate slug from title
+      const parsed = parseMdFile(text);
+      setTitleEn(parsed.title);
+      setExcerptEn(parsed.excerpt);
+      setContentEn(parsed.content);
+      setReadingTime(parsed.readTime);
+      if (parsed.image) setCoverImage(parsed.image);
+      if (parsed.title) {
         setSlug(
-          titleMatch[1]
+          parsed.title
             .toLowerCase()
             .replace(/[^a-z0-9\s-]/g, "")
             .replace(/\s+/g, "-")
             .replace(/-+/g, "-")
             .trim()
         );
-        // Remove the title line from content
-        content = content.replace(/^#\s+.+\n*/m, "");
       }
-
-      // Extract first image as cover image (markdown format)
-      const imgMatch = content.match(/!\[.*?\]\((.*?)\)/);
-      if (imgMatch) {
-        setCoverImage(imgMatch[1]);
-        // Remove the image line from content
-        content = content.replace(/!\[.*?\]\(.*?\)\n*/m, "");
-      }
-
-      // Extract first paragraph as excerpt (first non-empty, non-heading line)
-      const lines = content.split("\n");
-      for (const line of lines) {
-        const trimmed = line.trim();
-        if (trimmed && !trimmed.startsWith("#") && !trimmed.startsWith("!") && !trimmed.startsWith("-")) {
-          setExcerptEn(trimmed.substring(0, 200));
-          break;
-        }
-      }
-
-      // Estimate reading time (~200 words per minute)
-      const wordCount = content.split(/\s+/).filter(Boolean).length;
-      setReadingTime(Math.max(1, Math.round(wordCount / 200)));
-
-      setContentEn(content.trim());
-      setResult({ ok: true, message: "Markdown imported! Fill in PT-BR fields and review before publishing." });
+      setResult({ ok: true, message: "English file imported! Now import PT-BR or fill manually." });
     };
     reader.readAsText(file);
-    // Reset input so same file can be re-imported
+    e.target.value = "";
+  }
+
+  // Import PT-BR .md file
+  function handlePtBrImport(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const text = ev.target?.result as string;
+      if (!text) return;
+      const parsed = parseMdFile(text);
+      setTitlePtBr(parsed.title);
+      setExcerptPtBr(parsed.excerpt);
+      setContentPtBr(parsed.content);
+      setResult({ ok: true, message: "PT-BR file imported! Review and publish." });
+    };
+    reader.readAsText(file);
     e.target.value = "";
   }
 
@@ -176,19 +203,20 @@ export default function NewPostPage() {
           </Link>
           <h1 className="text-2xl font-bold">New Post</h1>
         </div>
-        <div>
-          <input
-            ref={mdFileRef}
-            type="file"
-            accept=".md,.mdx,.txt"
-            onChange={handleMdImport}
-            className="hidden"
-          />
+        <div className="flex gap-2">
+          <input ref={mdEnRef} type="file" accept=".md,.mdx,.txt" onChange={handleEnImport} className="hidden" />
+          <input ref={mdPtBrRef} type="file" accept=".md,.mdx,.txt" onChange={handlePtBrImport} className="hidden" />
           <button
-            onClick={() => mdFileRef.current?.click()}
-            className="rounded-lg border border-[#2a2a2a] bg-[#1e1e1e] px-4 py-2.5 text-sm font-bold text-[#a0a0a0] hover:border-[#ff6b00] hover:text-[#ff6b00] transition-colors"
+            onClick={() => mdEnRef.current?.click()}
+            className="rounded-lg border border-[#2a2a2a] bg-[#1e1e1e] px-4 py-2.5 text-sm font-bold text-[#ff6b00] hover:border-[#ff6b00] transition-colors"
           >
-            Import .md File
+            Import EN .md
+          </button>
+          <button
+            onClick={() => mdPtBrRef.current?.click()}
+            className="rounded-lg border border-[#2a2a2a] bg-[#1e1e1e] px-4 py-2.5 text-sm font-bold text-[#22c55e] hover:border-[#22c55e] transition-colors"
+          >
+            Import BR .md
           </button>
         </div>
       </div>
