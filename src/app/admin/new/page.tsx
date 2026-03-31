@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
 
@@ -36,6 +36,66 @@ export default function NewPostPage() {
 
   const [publishing, setPublishing] = useState(false);
   const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null);
+  const mdFileRef = useRef<HTMLInputElement>(null);
+
+  // Import from .md file — parses title, image, and content
+  function handleMdImport(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const text = ev.target?.result as string;
+      if (!text) return;
+
+      let content = text;
+
+      // Extract title from first # heading
+      const titleMatch = content.match(/^#\s+(.+)$/m);
+      if (titleMatch) {
+        setTitleEn(titleMatch[1].trim());
+        // Generate slug from title
+        setSlug(
+          titleMatch[1]
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, "")
+            .replace(/\s+/g, "-")
+            .replace(/-+/g, "-")
+            .trim()
+        );
+        // Remove the title line from content
+        content = content.replace(/^#\s+.+\n*/m, "");
+      }
+
+      // Extract first image as cover image (markdown format)
+      const imgMatch = content.match(/!\[.*?\]\((.*?)\)/);
+      if (imgMatch) {
+        setCoverImage(imgMatch[1]);
+        // Remove the image line from content
+        content = content.replace(/!\[.*?\]\(.*?\)\n*/m, "");
+      }
+
+      // Extract first paragraph as excerpt (first non-empty, non-heading line)
+      const lines = content.split("\n");
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (trimmed && !trimmed.startsWith("#") && !trimmed.startsWith("!") && !trimmed.startsWith("-")) {
+          setExcerptEn(trimmed.substring(0, 200));
+          break;
+        }
+      }
+
+      // Estimate reading time (~200 words per minute)
+      const wordCount = content.split(/\s+/).filter(Boolean).length;
+      setReadingTime(Math.max(1, Math.round(wordCount / 200)));
+
+      setContentEn(content.trim());
+      setResult({ ok: true, message: "Markdown imported! Fill in PT-BR fields and review before publishing." });
+    };
+    reader.readAsText(file);
+    // Reset input so same file can be re-imported
+    e.target.value = "";
+  }
 
   // Auto-generate slug from English title
   function generateSlug(title: string) {
@@ -106,14 +166,31 @@ export default function NewPostPage() {
 
   return (
     <div>
-      <div className="flex items-center gap-4">
-        <Link
-          href="/admin"
-          className="text-sm text-[#a0a0a0] hover:text-[#e10600]"
-        >
-          ← Back
-        </Link>
-        <h1 className="text-2xl font-bold">New Post</h1>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Link
+            href="/admin"
+            className="text-sm text-[#a0a0a0] hover:text-[#e10600]"
+          >
+            ← Back
+          </Link>
+          <h1 className="text-2xl font-bold">New Post</h1>
+        </div>
+        <div>
+          <input
+            ref={mdFileRef}
+            type="file"
+            accept=".md,.mdx,.txt"
+            onChange={handleMdImport}
+            className="hidden"
+          />
+          <button
+            onClick={() => mdFileRef.current?.click()}
+            className="rounded-lg border border-[#2a2a2a] bg-[#1e1e1e] px-4 py-2.5 text-sm font-bold text-[#a0a0a0] hover:border-[#ff6b00] hover:text-[#ff6b00] transition-colors"
+          >
+            Import .md File
+          </button>
+        </div>
       </div>
 
       {/* Metadata section */}
