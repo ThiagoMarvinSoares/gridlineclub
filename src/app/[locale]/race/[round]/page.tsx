@@ -27,10 +27,14 @@ export async function generateMetadata({
   const loc = getLocalizedRace(race, locale);
   const dict = await getDictionary(locale as Locale);
 
+  // Don't index future races (no content yet)
+  const hasStarted = new Date(race.sessions.fp1).getTime() < Date.now();
+
   return {
     title: `${loc.name} — ${dict.raceEvent.results}`,
     description: `${loc.name} ${dict.raceEvent.sessionResults} — ${loc.circuit}, ${loc.location}`,
     alternates: getAlternates(locale, `/race/${round}`),
+    ...(hasStarted ? {} : { robots: { index: false, follow: false } }),
   };
 }
 
