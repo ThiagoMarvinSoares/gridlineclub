@@ -39,6 +39,7 @@
   "posts": {
     "heading": "F1 Articles, Race Recaps & Analysis",
     "metaDescription": "All articles about Formula 1 — regulations, race recaps, technical analysis, and explainers.",
+    "introText": "Explore our collection of Formula 1 articles covering every aspect of the sport. From detailed race recaps and qualifying analysis to technical deep dives into aerodynamics and power units, regulation breakdowns, tire strategy guides, and beginner-friendly explainers — everything you need to follow the 2026 F1 season.",
     "minRead": "min read",
     "readMore": "Read more",
     "noArticles": "No articles found.",
@@ -72,6 +73,7 @@
   "standings": {
     "heading": "F1 2026 Championship Standings",
     "metaDescription": "Live Formula 1 2026 driver and constructor championship standings.",
+    "introText": "Track the 2026 Formula 1 World Championship as it unfolds. Driver and constructor standings are updated automatically after every race and sprint session. Points are calculated live from official race results, including the standard 25-18-15-12-10-8-6-4-2-1 system for races and 8-7-6-5-4-3-2-1 for sprints.",
     "apiCredit": "Live standings calculated from race and sprint results via the",
     "apiSuffix": "API.",
     "drivers": "Drivers",
@@ -119,6 +121,7 @@
   "raceEvent": {
     "results": "Results",
     "sessionResults": "session results and classification",
+    "introText": "Full session results from practice, qualifying, and the race. Positions, gaps, lap counts, and driver data powered by the OpenF1 API.",
     "fp1": "FP1",
     "fp2": "FP2",
     "fp3": "FP3",

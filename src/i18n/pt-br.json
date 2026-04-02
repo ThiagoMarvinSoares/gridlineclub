@@ -39,6 +39,7 @@
   "posts": {
     "heading": "Artigos F1, Resumos de Corridas e Análises",
     "metaDescription": "Todos os artigos sobre Fórmula 1 — regulamentos, resumos de corridas, análises técnicas e explicações.",
+    "introText": "Explore nossa coleção de artigos sobre Fórmula 1 cobrindo cada aspecto do esporte. De resumos detalhados de corridas e análises de classificação a mergulhos técnicos em aerodinâmica e unidades de potência, análises de regulamentos, guias de estratégia de pneus e explicações para iniciantes — tudo que você precisa para acompanhar a temporada de F1 2026.",
     "minRead": "min de leitura",
     "readMore": "Leia mais",
     "noArticles": "Nenhum artigo encontrado.",
@@ -72,6 +73,7 @@
   "standings": {
     "heading": "Classificação do Campeonato F1 2026",
     "metaDescription": "Classificação ao vivo dos campeonatos de pilotos e construtores da Fórmula 1 2026.",
+    "introText": "Acompanhe o Campeonato Mundial de Fórmula 1 2026 em tempo real. A classificação de pilotos e construtores é atualizada automaticamente após cada corrida e sprint. Os pontos são calculados ao vivo a partir dos resultados oficiais, incluindo o sistema padrão 25-18-15-12-10-8-6-4-2-1 para corridas e 8-7-6-5-4-3-2-1 para sprints.",
     "apiCredit": "Classificação ao vivo calculada a partir dos resultados de corridas e sprints via",
     "apiSuffix": "API.",
     "drivers": "Pilotos",
@@ -119,6 +121,7 @@
   "raceEvent": {
     "results": "Resultados",
     "sessionResults": "resultados e classificação das sessões",
+    "introText": "Resultados completos de treinos livres, classificação e corrida. Posições, gaps, voltas e dados dos pilotos atualizados via API OpenF1.",
     "fp1": "TL1",
     "fp2": "TL2",
     "fp3": "TL3",

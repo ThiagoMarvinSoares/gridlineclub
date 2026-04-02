@@ -27,7 +27,7 @@ export default async function StandingsPage({ params }: { params: Promise<{ loca
     <div className="py-12">
       <Container>
         <SectionHeading as="h1">{dict.standings.heading}</SectionHeading>
-        <p className="mt-3 text-text-secondary">{dict.standings.metaDescription}</p>
+        <p className="mt-3 text-text-secondary">{dict.standings.introText}</p>
         <p className="mt-2 text-sm text-text-muted">
           {dict.standings.apiCredit}{" "}
           <a href="https://openf1.org" target="_blank" rel="noopener noreferrer" className="text-racing-red transition-colors hover:text-racing-orange">OpenF1</a>{" "}

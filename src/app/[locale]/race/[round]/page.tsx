@@ -81,6 +81,8 @@ export default async function RaceEventPage({
           </div>
         </div>
 
+        <p className="mb-6 text-text-secondary">{dict.raceEvent.introText}</p>
+
         <RaceEventClient race={race} dict={dict.raceEvent} />
 
         <div className="mt-4 text-right text-xs text-text-muted">
