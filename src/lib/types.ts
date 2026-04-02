@@ -34,6 +34,7 @@ export interface RaceLocalized {
 
 export interface Race {
   round: number;
+  slug: string;
   name: string;
   officialName: string;
   circuit: string;

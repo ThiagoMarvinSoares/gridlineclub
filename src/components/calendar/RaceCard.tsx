@@ -132,7 +132,7 @@ export default function RaceCard({
       {showViewResults && (
         <div className="mt-4 border-t border-border/50 pt-3">
           <Link
-            href={`/${locale}/race/${race.round}`}
+            href={`/${locale}/race/${race.slug}`}
             className="text-sm font-bold text-racing-red transition-colors hover:text-racing-orange"
           >
             {dict.viewResults || "View Results"} &rarr;

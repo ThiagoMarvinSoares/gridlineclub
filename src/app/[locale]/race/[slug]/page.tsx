@@ -11,17 +11,17 @@ import RaceEventClient from "./RaceEventClient";
 import Link from "next/link";
 
 export function generateStaticParams() {
-  return f1Calendar2026.map((race) => ({ round: String(race.round) }));
+  return f1Calendar2026.map((race) => ({ slug: race.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string; round: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { locale, round } = await params;
+  const { locale, slug } = await params;
   if (!isValidLocale(locale)) return { title: "Race Not Found" };
-  const race = f1Calendar2026.find((r) => r.round === Number(round));
+  const race = f1Calendar2026.find((r) => r.slug === slug);
   if (!race) return { title: "Race Not Found" };
 
   const loc = getLocalizedRace(race, locale);
@@ -33,7 +33,7 @@ export async function generateMetadata({
   return {
     title: `${loc.name} — ${dict.raceEvent.results}`,
     description: `${loc.name} ${dict.raceEvent.sessionResults} — ${loc.circuit}, ${loc.location}`,
-    alternates: getAlternates(locale, `/race/${round}`),
+    alternates: getAlternates(locale, `/race/${slug}`),
     ...(hasStarted ? {} : { robots: { index: false, follow: false } }),
   };
 }
@@ -41,12 +41,12 @@ export async function generateMetadata({
 export default async function RaceEventPage({
   params,
 }: {
-  params: Promise<{ locale: string; round: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { locale, round } = await params;
+  const { locale, slug } = await params;
   if (!isValidLocale(locale)) notFound();
 
-  const race = f1Calendar2026.find((r) => r.round === Number(round));
+  const race = f1Calendar2026.find((r) => r.slug === slug);
   if (!race) notFound();
 
   const dict = await getDictionary(locale);

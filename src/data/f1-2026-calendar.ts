@@ -3,6 +3,7 @@ import { Race } from "@/lib/types";
 export const f1Calendar2026: Race[] = [
   {
     round: 1,
+    slug: "australian-gp",
     name: "Australian Grand Prix",
     officialName: "Rolex Australian Grand Prix 2026",
     circuit: "Albert Park Circuit",
@@ -27,6 +28,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 2,
+    slug: "chinese-gp",
     name: "Chinese Grand Prix",
     officialName: "Heineken Chinese Grand Prix 2026",
     circuit: "Shanghai International Circuit",
@@ -53,6 +55,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 3,
+    slug: "japanese-gp",
     name: "Japanese Grand Prix",
     officialName: "Lenovo Japanese Grand Prix 2026",
     circuit: "Suzuka International Racing Course",
@@ -77,6 +80,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 4,
+    slug: "miami-gp",
     name: "Miami Grand Prix",
     officialName: "Crypto.com Miami Grand Prix 2026",
     circuit: "Miami International Autodrome",
@@ -103,6 +107,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 5,
+    slug: "canadian-gp",
     name: "Canadian Grand Prix",
     officialName: "AWS Grand Prix du Canada 2026",
     circuit: "Circuit Gilles-Villeneuve",
@@ -129,6 +134,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 6,
+    slug: "monaco-gp",
     name: "Monaco Grand Prix",
     officialName: "Grand Prix de Monaco 2026",
     circuit: "Circuit de Monaco",
@@ -153,6 +159,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 7,
+    slug: "barcelona-gp",
     name: "Barcelona-Catalunya Grand Prix",
     officialName: "Aramco Barcelona-Catalunya Grand Prix 2026",
     circuit: "Circuit de Barcelona-Catalunya",
@@ -177,6 +184,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 8,
+    slug: "austrian-gp",
     name: "Austrian Grand Prix",
     officialName: "Qatar Airways Austrian Grand Prix 2026",
     circuit: "Red Bull Ring",
@@ -201,6 +209,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 9,
+    slug: "british-gp",
     name: "British Grand Prix",
     officialName: "Qatar Airways British Grand Prix 2026",
     circuit: "Silverstone Circuit",
@@ -227,6 +236,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 10,
+    slug: "belgian-gp",
     name: "Belgian Grand Prix",
     officialName: "Qatar Airways Belgian Grand Prix 2026",
     circuit: "Circuit de Spa-Francorchamps",
@@ -251,6 +261,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 11,
+    slug: "hungarian-gp",
     name: "Hungarian Grand Prix",
     officialName: "Lenovo Hungarian Grand Prix 2026",
     circuit: "Hungaroring",
@@ -275,6 +286,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 12,
+    slug: "dutch-gp",
     name: "Dutch Grand Prix",
     officialName: "Heineken Dutch Grand Prix 2026",
     circuit: "Circuit Zandvoort",
@@ -301,6 +313,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 13,
+    slug: "italian-gp",
     name: "Italian Grand Prix",
     officialName: "Pirelli Gran Premio d'Italia 2026",
     circuit: "Autodromo Nazionale Monza",
@@ -325,6 +338,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 14,
+    slug: "spanish-gp",
     name: "Spanish Grand Prix",
     officialName: "Gran Premio de Madrid 2026",
     circuit: "Madrid Street Circuit",
@@ -349,6 +363,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 15,
+    slug: "azerbaijan-gp",
     name: "Azerbaijan Grand Prix",
     officialName: "Qatar Airways Azerbaijan Grand Prix 2026",
     circuit: "Baku City Circuit",
@@ -373,6 +388,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 16,
+    slug: "singapore-gp",
     name: "Singapore Grand Prix",
     officialName: "Singapore Airlines Singapore Grand Prix 2026",
     circuit: "Marina Bay Street Circuit",
@@ -399,6 +415,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 17,
+    slug: "us-gp",
     name: "United States Grand Prix",
     officialName: "Lenovo United States Grand Prix 2026",
     circuit: "Circuit of the Americas",
@@ -423,6 +440,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 18,
+    slug: "mexico-city-gp",
     name: "Mexico City Grand Prix",
     officialName: "Gran Premio de la Ciudad de Mexico 2026",
     circuit: "Autodromo Hermanos Rodriguez",
@@ -447,6 +465,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 19,
+    slug: "brazilian-gp",
     name: "Brazilian Grand Prix",
     officialName: "Lenovo Grande Premio de Sao Paulo 2026",
     circuit: "Autodromo Jose Carlos Pace",
@@ -471,6 +490,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 20,
+    slug: "las-vegas-gp",
     name: "Las Vegas Grand Prix",
     officialName: "Heineken Silver Las Vegas Grand Prix 2026",
     circuit: "Las Vegas Strip Circuit",
@@ -495,6 +515,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 21,
+    slug: "qatar-gp",
     name: "Qatar Grand Prix",
     officialName: "Qatar Airways Qatar Grand Prix 2026",
     circuit: "Lusail International Circuit",
@@ -519,6 +540,7 @@ export const f1Calendar2026: Race[] = [
   },
   {
     round: 22,
+    slug: "abu-dhabi-gp",
     name: "Abu Dhabi Grand Prix",
     officialName: "Etihad Airways Abu Dhabi Grand Prix 2026",
     circuit: "Yas Marina Circuit",

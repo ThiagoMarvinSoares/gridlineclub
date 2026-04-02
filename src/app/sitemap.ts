@@ -55,7 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       const fp1Time = new Date(race.sessions.fp1).getTime();
       if (fp1Time < now) {
         entries.push({
-          url: `${BASE_URL}/${locale}/race/${race.round}`,
+          url: `${BASE_URL}/${locale}/race/${race.slug}`,
           lastModified: new Date(race.dateStart),
           changeFrequency: "weekly",
           priority: 0.8,
