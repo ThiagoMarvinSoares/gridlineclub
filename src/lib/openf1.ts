@@ -96,9 +96,14 @@ export async function fetchSprintSessions(year: number): Promise<OpenF1Session[]
 }
 
 export async function fetchPositions(sessionKey: number): Promise<OpenF1Position[]> {
-  return fetchWithRetry<OpenF1Position[]>(
-    `${API_BASE}/position?session_key=${sessionKey}`
-  );
+  try {
+    return await fetchWithRetry<OpenF1Position[]>(
+      `${API_BASE}/position?session_key=${sessionKey}`
+    );
+  } catch {
+    // Return empty array for cancelled races or failed fetches
+    return [];
+  }
 }
 
 /**
@@ -140,19 +145,16 @@ async function fetchAllPositions(
   sessions: OpenF1Session[]
 ): Promise<Map<number, OpenF1Position[]>> {
   const result = new Map<number, OpenF1Position[]>();
-  const BATCH_SIZE = 2;
 
-  for (let i = 0; i < sessions.length; i += BATCH_SIZE) {
-    const batch = sessions.slice(i, i + BATCH_SIZE);
-    const results = await Promise.all(
-      batch.map((s) => fetchPositions(s.session_key))
-    );
-    for (let j = 0; j < batch.length; j++) {
-      result.set(batch[j].session_key, results[j]);
-    }
-    // Small delay between batches to avoid 429
-    if (i + BATCH_SIZE < sessions.length) {
-      await sleep(300);
+  // Fetch ONE at a time with 500ms delay to avoid 429
+  for (let i = 0; i < sessions.length; i++) {
+    const session = sessions[i];
+    const positions = await fetchPositions(session.session_key);
+    result.set(session.session_key, positions);
+
+    // Wait between each request
+    if (i < sessions.length - 1) {
+      await sleep(500);
     }
   }
 
